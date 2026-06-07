@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nova análise • Voice Negotiation Analyzer</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-layout">
+
+    <aside class="sidebar">
+      <a class="logo" href="dashboard.html">
+        <span class="logo-mark">VN</span>
+        <span>Voice Negotiation</span>
+      </a>
+      <nav class="menu">
+        <a class="" href="dashboard.html">Dashboard</a>
+<a class="active" href="nova-analise.html">Nova análise</a>
+<a class="" href="upload.html">Upload de áudio</a>
+<a class="" href="reuniao.html">Reunião ao vivo</a>
+<a class="" href="relatorio.html">Relatório</a>
+      </nav>
+      <div class="sidebar-footer">
+        Protótipo navegável em HTML/CSS.<br />
+        Sem backend, sem autenticação real.
+      </div>
+    </aside>
+
+    <main class="content">
+      <header class="topbar">
+        <div class="title">
+          <h1>Nova análise</h1>
+          <p>Escolha a origem da conversa para gerar o relatório.</p>
+        </div>
+        <div class="user-pill">
+          <span class="avatar">AS</span>
+          <strong>Ana Silva</strong>
+        </div>
+      </header>
+
+      <section class="grid cols-2">
+        <article class="card">
+          <span class="badge">Áudio gravado</span>
+          <h2>Carregar arquivo</h2>
+          <p>Use esta opção para simular o envio de uma gravação de negociação já realizada.</p>
+          <div class="steps">
+            <div class="step">
+              <span class="step-number">1</span>
+              <div><strong>Selecionar arquivo</strong><span>MP3, WAV ou M4A no protótipo.</span></div>
+            </div>
+            <div class="step">
+              <span class="step-number">2</span>
+              <div><strong>Transcrever conversa</strong><span>Processamento exibido como etapa visual.</span></div>
+            </div>
+            <div class="step">
+              <span class="step-number">3</span>
+              <div><strong>Gerar relatório</strong><span>Resumo, fatos, inferências e ações.</span></div>
+            </div>
+          </div>
+          <div style="margin-top:22px">
+            <a class="btn" href="upload.html">Continuar com upload</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <span class="badge green">Reunião</span>
+          <h2>Simular reunião</h2>
+          <p>Use esta opção para demonstrar uma negociação acompanhada em tempo real.</p>
+          <div class="steps">
+            <div class="step">
+              <span class="step-number">1</span>
+              <div><strong>Criar sala</strong><span>Link fake para participantes.</span></div>
+            </div>
+            <div class="step">
+              <span class="step-number">2</span>
+              <div><strong>Gravar conversa</strong><span>Indicador visual de gravação ativa.</span></div>
+            </div>
+            <div class="step">
+              <span class="step-number">3</span>
+              <div><strong>Finalizar e analisar</strong><span>Relatório gerado no final da reunião.</span></div>
+            </div>
+          </div>
+          <div style="margin-top:22px">
+            <a class="btn" href="reuniao.html">Criar reunião</a>
+          </div>
+        </article>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

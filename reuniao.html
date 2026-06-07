@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reunião • Voice Negotiation Analyzer</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-layout">
+
+    <aside class="sidebar">
+      <a class="logo" href="dashboard.html">
+        <span class="logo-mark">VN</span>
+        <span>Voice Negotiation</span>
+      </a>
+      <nav class="menu">
+        <a class="" href="dashboard.html">Dashboard</a>
+<a class="" href="nova-analise.html">Nova análise</a>
+<a class="" href="upload.html">Upload de áudio</a>
+<a class="active" href="reuniao.html">Reunião ao vivo</a>
+<a class="" href="relatorio.html">Relatório</a>
+      </nav>
+      <div class="sidebar-footer">
+        Protótipo navegável em HTML/CSS.<br />
+        Sem backend, sem autenticação real.
+      </div>
+    </aside>
+
+    <main class="content">
+      <header class="topbar">
+        <div class="title">
+          <h1>Reunião ao vivo</h1>
+          <p>Ambiente visual para simular a gravação e análise da negociação.</p>
+        </div>
+        <div class="user-pill">
+          <span class="avatar">AS</span>
+          <strong>Ana Silva</strong>
+        </div>
+      </header>
+
+      <section class="grid cols-2">
+        <article class="card">
+          <h2>Sala de negociação</h2>
+          <div class="meeting-screen">
+            <div class="video-grid">
+              <div class="video-tile">
+                <div class="video-avatar">AS</div>
+                <span class="video-name">Ana Silva • Empresa</span>
+              </div>
+              <div class="video-tile">
+                <div class="video-avatar">JP</div>
+                <span class="video-name">João Pereira • Cliente</span>
+              </div>
+            </div>
+            <div class="meeting-controls">
+              <button class="control">🎙</button>
+              <button class="control">📹</button>
+              <button class="control">●</button>
+              <a class="control end" href="relatorio.html" style="display:grid;place-items:center">✕</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <span class="badge green">Gravação ativa</span>
+          <h2>Transcrição em tempo real</h2>
+          <div class="timeline">
+            <div class="message">
+              <strong>Ana Silva</strong>
+              Podemos fechar o contrato com entrega até sexta-feira, mantendo o preço acordado.
+            </div>
+            <div class="message">
+              <strong>João Pereira</strong>
+              O prazo funciona, mas precisamos confirmar a condição de suporte no primeiro mês.
+            </div>
+            <div class="message">
+              <strong>Ana Silva</strong>
+              Incluímos suporte inicial sem custo adicional durante 30 dias.
+            </div>
+          </div>
+          <div style="margin-top:22px">
+            <a class="btn" href="relatorio.html">Finalizar e gerar relatório</a>
+          </div>
+        </article>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

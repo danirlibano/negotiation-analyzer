@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Relatório • Voice Negotiation Analyzer</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-layout">
+
+    <aside class="sidebar">
+      <a class="logo" href="dashboard.html">
+        <span class="logo-mark">VN</span>
+        <span>Voice Negotiation</span>
+      </a>
+      <nav class="menu">
+        <a class="" href="dashboard.html">Dashboard</a>
+<a class="" href="nova-analise.html">Nova análise</a>
+<a class="" href="upload.html">Upload de áudio</a>
+<a class="" href="reuniao.html">Reunião ao vivo</a>
+<a class="active" href="relatorio.html">Relatório</a>
+      </nav>
+      <div class="sidebar-footer">
+        Protótipo navegável em HTML/CSS.<br />
+        Sem backend, sem autenticação real.
+      </div>
+    </aside>
+
+    <main class="content">
+      <header class="topbar">
+        <div class="title">
+          <h1>Relatório da negociação</h1>
+          <p>Resultado final da análise simulada.</p>
+        </div>
+        <div class="user-pill">
+          <span class="avatar">AS</span>
+          <strong>Ana Silva</strong>
+        </div>
+      </header>
+
+      <section class="card">
+        <div class="report-header">
+          <div>
+            <span class="badge green">Relatório gerado</span>
+            <h2>Negociação Comercial - Cliente Alpha</h2>
+            <p>Participantes: Ana Silva e João Pereira</p>
+          </div>
+          <div style="display:flex; gap:12px; flex-wrap:wrap">
+            <a class="btn secondary" href="dashboard.html">Voltar ao dashboard</a>
+            <a class="btn" href="#">Baixar PDF</a>
+          </div>
+        </div>
+
+        <div>
+          <h3>Resumo executivo</h3>
+          <p>
+            A negociação avançou de forma positiva. As partes alinharam preço, prazo de entrega
+            e suporte inicial. O principal ponto que ainda exige confirmação é a formalização
+            das condições de suporte no contrato.
+          </p>
+        </div>
+
+        <div class="report-section">
+          <h3>Fatos identificados</h3>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Fato</th>
+                <th>Origem</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>O prazo de entrega acordado é sexta-feira.</td>
+                <td>Fala de Ana Silva</td>
+                <td><span class="badge green">Confirmado</span></td>
+              </tr>
+              <tr>
+                <td>O preço previamente acordado será mantido.</td>
+                <td>Fala de Ana Silva</td>
+                <td><span class="badge green">Confirmado</span></td>
+              </tr>
+              <tr>
+                <td>Haverá suporte inicial durante 30 dias.</td>
+                <td>Fala de Ana Silva</td>
+                <td><span class="badge green">Confirmado</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="report-section">
+          <h3>Inferências sugeridas</h3>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Inferência</th>
+                <th>Justificativa</th>
+                <th>Confiança</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>O cliente aceita o prazo, mas está atento ao suporte pós-venda.</td>
+                <td>O cliente não contestou o prazo, mas pediu confirmação sobre suporte.</td>
+                <td><span class="badge">Alta</span></td>
+              </tr>
+              <tr>
+                <td>O fechamento depende mais da formalização contratual do que de preço.</td>
+                <td>Não houve objeção explícita ao valor, apenas às condições adicionais.</td>
+                <td><span class="badge yellow">Média</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="report-section">
+          <h3>Próximos passos recomendados</h3>
+          <div class="steps">
+            <div class="step">
+              <span class="step-number">1</span>
+              <div><strong>Atualizar proposta comercial</strong><span>Incluir prazo de entrega e suporte inicial de 30 dias.</span></div>
+            </div>
+            <div class="step">
+              <span class="step-number">2</span>
+              <div><strong>Enviar minuta contratual</strong><span>Formalizar as condições discutidas na reunião.</span></div>
+            </div>
+            <div class="step">
+              <span class="step-number">3</span>
+              <div><strong>Confirmar aceite do cliente</strong><span>Solicitar aprovação final por email.</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="report-section">
+          <h3>Transcrição resumida</h3>
+          <div class="timeline">
+            <div class="message"><strong>Ana Silva</strong> Podemos fechar o contrato com entrega até sexta-feira, mantendo o preço acordado.</div>
+            <div class="message"><strong>João Pereira</strong> O prazo funciona, mas precisamos confirmar a condição de suporte no primeiro mês.</div>
+            <div class="message"><strong>Ana Silva</strong> Incluímos suporte inicial sem custo adicional durante 30 dias.</div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard • Voice Negotiation Analyzer</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-layout">
+
+    <aside class="sidebar">
+      <a class="logo" href="dashboard.html">
+        <span class="logo-mark">VN</span>
+        <span>Voice Negotiation</span>
+      </a>
+      <nav class="menu">
+        <a class="active" href="dashboard.html">Dashboard</a>
+<a class="" href="nova-analise.html">Nova análise</a>
+<a class="" href="upload.html">Upload de áudio</a>
+<a class="" href="reuniao.html">Reunião ao vivo</a>
+<a class="" href="relatorio.html">Relatório</a>
+      </nav>
+      <div class="sidebar-footer">
+        Protótipo navegável em HTML/CSS.<br />
+        Sem backend, sem autenticação real.
+      </div>
+    </aside>
+
+    <main class="content">
+      <header class="topbar">
+        <div class="title">
+          <h1>Dashboard</h1>
+          <p>Acompanhe análises recentes e inicie uma nova avaliação de negociação.</p>
+        </div>
+        <div class="user-pill">
+          <span class="avatar">AS</span>
+          <strong>Ana Silva</strong>
+        </div>
+      </header>
+
+      <section class="grid cols-3">
+        <article class="card">
+          <span class="badge green">Concluído</span>
+          <h3>Análises finalizadas</h3>
+          <div class="stat">12</div>
+          <p>Relatórios gerados nas últimas semanas.</p>
+        </article>
+        <article class="card">
+          <span class="badge">Novo</span>
+          <h3>Fatos extraídos</h3>
+          <div class="stat">186</div>
+          <p>Informações objetivas destacadas das conversas.</p>
+        </article>
+        <article class="card">
+          <span class="badge yellow">A revisar</span>
+          <h3>Inferências</h3>
+          <div class="stat">34</div>
+          <p>Interpretações sugeridas para validação humana.</p>
+        </article>
+      </section>
+
+      <section class="grid cols-2" style="margin-top:20px">
+        <article class="card">
+          <h2>Criar nova análise</h2>
+          <p>Escolha se deseja carregar um áudio já gravado ou simular uma reunião ao vivo.</p>
+          <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:20px">
+            <a class="btn" href="nova-analise.html">Iniciar análise</a>
+            <a class="btn secondary" href="relatorio.html">Ver relatório exemplo</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <h2>Última análise</h2>
+          <p><strong>Negociação Comercial - Cliente Alpha</strong></p>
+          <p>Resumo, fatos, inferências e próximos passos já disponíveis.</p>
+          <a class="btn secondary" href="relatorio.html">Abrir relatório</a>
+        </article>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

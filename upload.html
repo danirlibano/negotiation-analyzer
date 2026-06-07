@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Upload • Voice Negotiation Analyzer</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-layout">
+
+    <aside class="sidebar">
+      <a class="logo" href="dashboard.html">
+        <span class="logo-mark">VN</span>
+        <span>Voice Negotiation</span>
+      </a>
+      <nav class="menu">
+        <a class="" href="dashboard.html">Dashboard</a>
+<a class="" href="nova-analise.html">Nova análise</a>
+<a class="active" href="upload.html">Upload de áudio</a>
+<a class="" href="reuniao.html">Reunião ao vivo</a>
+<a class="" href="relatorio.html">Relatório</a>
+      </nav>
+      <div class="sidebar-footer">
+        Protótipo navegável em HTML/CSS.<br />
+        Sem backend, sem autenticação real.
+      </div>
+    </aside>
+
+    <main class="content">
+      <header class="topbar">
+        <div class="title">
+          <h1>Upload de áudio</h1>
+          <p>Simule o envio de uma gravação para análise.</p>
+        </div>
+        <div class="user-pill">
+          <span class="avatar">AS</span>
+          <strong>Ana Silva</strong>
+        </div>
+      </header>
+
+      <section class="grid cols-2">
+        <article class="card">
+          <h2>Dados da negociação</h2>
+          <div class="field">
+            <label>Título</label>
+            <input value="Negociação Comercial - Cliente Alpha" />
+          </div>
+          <div class="field">
+            <label>Participantes</label>
+            <input value="Ana Silva, João Pereira" />
+          </div>
+          <div class="field">
+            <label>Contexto</label>
+            <textarea>Discussão sobre preço, prazo de entrega e condições de renovação de contrato.</textarea>
+          </div>
+        </article>
+
+        <article class="card">
+          <h2>Arquivo de áudio</h2>
+          <div class="upload-box">
+            <div class="upload-icon">↑</div>
+            <h3>negociacao-cliente-alpha.mp3</h3>
+            <p>Arquivo carregado com sucesso para demonstração.</p>
+            <span class="badge green">Pronto para análise</span>
+          </div>
+          <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:22px">
+            <a class="btn secondary" href="nova-analise.html">Voltar</a>
+            <a class="btn" href="relatorio.html">Gerar relatório</a>
+          </div>
+        </article>
+      </section>
+
+      <section class="card" style="margin-top:20px">
+        <h2>Processamento simulado</h2>
+        <div class="steps">
+          <div class="step"><span class="step-number">✓</span><div><strong>Áudio recebido</strong><span>Arquivo validado e pronto para transcrição.</span></div></div>
+          <div class="step"><span class="step-number">✓</span><div><strong>Transcrição criada</strong><span>Falas separadas por participante.</span></div></div>
+          <div class="step"><span class="step-number">✓</span><div><strong>Análise concluída</strong><span>Fatos e inferências organizados no relatório.</span></div></div>
+        </div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>
