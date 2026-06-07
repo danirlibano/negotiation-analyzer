@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Preview • Banco de Dados</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: #ffffff;
+      --text: #0f172a;
+      --muted: #64748b;
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --accent: #14b8a6;
+      --border: #e2e8f0;
+      --soft: #f8fafc;
+      --shadow: 0 24px 70px rgba(15, 23, 42, 0.14);
+      --radius: 24px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(20, 184, 166, 0.14), transparent 28%),
+        radial-gradient(circle at 80% 20%, rgba(37, 99, 235, 0.12), transparent 32%),
+        #f1f5f9;
+      color: var(--text);
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .topbar {
+      min-height: 76px;
+      padding: 0 36px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(255,255,255,0.78);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(226, 232, 240, 0.9);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 850;
+      letter-spacing: -0.04em;
+      font-size: 19px;
+    }
+
+    .logo-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: white;
+      display: grid;
+      place-items: center;
+      box-shadow: 0 14px 30px rgba(37, 99, 235, 0.22);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 650;
+    }
+
+    .nav a {
+      padding: 10px 12px;
+      border-radius: 12px;
+    }
+
+    .nav a:hover {
+      background: #e2e8f0;
+      color: var(--text);
+    }
+
+    .hero {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 42px 28px 20px;
+    }
+
+    .hero-card {
+      background: linear-gradient(135deg, #020617, #0f172a 56%, #172554);
+      color: white;
+      border-radius: 32px;
+      padding: 36px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.18);
+      color: rgba(255,255,255,0.82);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    h1 {
+      margin: 18px 0 12px;
+      font-size: clamp(34px, 5vw, 56px);
+      line-height: 1;
+      letter-spacing: -0.07em;
+      max-width: 900px;
+    }
+
+    .hero-card p {
+      color: rgba(255,255,255,0.72);
+      line-height: 1.7;
+      max-width: 900px;
+      font-size: 17px;
+      margin: 0;
+    }
+
+    .layout {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 24px 28px 46px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 410px;
+      gap: 22px;
+      align-items: start;
+    }
+
+    .panel {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: 0 18px 50px rgba(15, 23, 42, 0.07);
+      overflow: hidden;
+    }
+
+    .panel-header {
+      padding: 20px 22px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .panel-header h2 {
+      margin: 0;
+      font-size: 20px;
+      letter-spacing: -0.035em;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 28px;
+      padding: 0 10px;
+      border-radius: 999px;
+      background: #dbeafe;
+      color: #1d4ed8;
+      font-size: 12px;
+      font-weight: 850;
+      white-space: nowrap;
+    }
+
+    .badge.green {
+      background: #dcfce7;
+      color: #15803d;
+    }
+
+    .diagram-wrap {
+      padding: 18px;
+      overflow: auto;
+      min-height: 760px;
+      background: #ffffff;
+    }
+
+    .mermaid {
+      min-width: 1200px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .info {
+      position: sticky;
+      top: 100px;
+    }
+
+    .info-body {
+      padding: 22px;
+    }
+
+    .table-name {
+      margin: 0 0 8px;
+      font-size: 26px;
+      letter-spacing: -0.05em;
+    }
+
+    .description {
+      color: var(--muted);
+      line-height: 1.65;
+      margin: 0 0 20px;
+    }
+
+    .field-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 16px;
+      max-height: 300px;
+      overflow: auto;
+      padding-right: 4px;
+    }
+
+    .field {
+      padding: 12px 14px;
+      background: var(--soft);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+    }
+
+    .field strong {
+      display: block;
+      font-size: 13px;
+      margin-bottom: 3px;
+    }
+
+    .field span {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .section-title {
+      margin: 22px 0 10px;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      font-weight: 850;
+    }
+
+    .hint {
+      margin-top: 18px;
+      padding: 14px;
+      border-radius: 16px;
+      background: #ecfeff;
+      border: 1px solid #a5f3fc;
+      color: #155e75;
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .mini-map {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 12px;
+      max-height: 320px;
+      overflow: auto;
+      padding-right: 4px;
+    }
+
+    .mini-map button {
+      min-height: 36px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: white;
+      color: var(--muted);
+      font-weight: 750;
+      cursor: pointer;
+      font-size: 11px;
+      padding: 0 8px;
+    }
+
+    .mini-map button:hover {
+      border-color: #93c5fd;
+      color: var(--primary);
+      background: #eff6ff;
+    }
+
+    .mini-map button.active {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    .flow {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+      padding: 18px;
+      border-top: 1px solid var(--border);
+      background: #f8fafc;
+    }
+
+    .flow-item {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 14px;
+      min-height: 86px;
+    }
+
+    .flow-item strong {
+      display: block;
+      font-size: 13px;
+      margin-bottom: 6px;
+    }
+
+    .flow-item span {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.4;
+    }
+
+    .mermaid svg { max-width: 100%; height: auto; }
+    .mermaid g[id*="entity-"] { cursor: pointer; transition: opacity 0.15s ease, filter 0.15s ease; }
+    .mermaid g[id*="entity-"]:hover { filter: drop-shadow(0 6px 10px rgba(37, 99, 235, 0.28)); opacity: 0.92; }
+
+    @media (max-width: 1150px) {
+      .layout { grid-template-columns: 1fr; }
+      .info { position: static; }
+      .flow { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 720px) {
+      .topbar { padding: 0 18px; }
+      .nav { display: none; }
+      .hero, .layout { padding-left: 16px; padding-right: 16px; }
+      .hero-card { padding: 26px; }
+      .mini-map { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="topbar">
+    <a class="logo" href="index.html">
+      <span class="logo-mark">VN</span>
+      <span>Voice Negotiation Analyzer</span>
+    </a>
+
+    <nav class="nav">
+      <a href="dashboard.html">Dashboard</a>
+      <a href="nova-analise.html">Nova análise</a>
+      <a href="relatorio.html">Relatório</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-card">
+      <span class="eyebrow">Preview • Banco + regras JSON</span>
+      <h1>Modelo do banco de dados</h1>
+      <p>
+        Este diagrama inclui o fluxo de análise, transcrição, fatos, inferências, métricas, scores,
+        recomendações, relatório final e as tabelas para armazenar regras e taxonomias vindas dos JSONs.
+      </p>
+    </div>
+  </section>
+
+  <main class="layout">
+    <section class="panel">
+      <div class="panel-header">
+        <h2>Diagrama ER interativo</h2>
+        <span class="badge green">Clique nas tabelas</span>
+      </div>
+
+      <div class="diagram-wrap">
+        <pre class="mermaid">
+erDiagram
+    USERS ||--o{ ANALYSES : creates
+    USERS ||--o{ REPORTS : generates
+
+    ANALYSES ||--o| AUDIO_FILES : has
+    ANALYSES ||--o{ PARTICIPANTS : includes
+    ANALYSES ||--o| TRANSCRIPTIONS : generates
+    TRANSCRIPTIONS ||--o{ TRANSCRIPT_SEGMENTS : contains
+    PARTICIPANTS ||--o{ TRANSCRIPT_SEGMENTS : speaks
+
+    TRANSCRIPT_SEGMENTS ||--o{ FACTS : supports
+    TRANSCRIPT_SEGMENTS ||--o{ INFERENCES : supports
+    ANALYSES ||--o{ FACTS : extracts
+    ANALYSES ||--o{ INFERENCES : extracts
+
+    ANALYSES ||--o{ ANALYSIS_METRICS : calculates
+    PARTICIPANTS ||--o{ ANALYSIS_METRICS : has
+    ANALYSES ||--o{ ANALYSIS_SCORES : calculates
+    PARTICIPANTS ||--o{ ANALYSIS_SCORES : has
+
+    ANALYSES ||--o{ RECOMMENDATIONS : generates
+    PARTICIPANTS ||--o{ RECOMMENDATIONS : receives
+    FACTS ||--o{ RECOMMENDATION_FACTS : supports
+    RECOMMENDATIONS ||--o{ RECOMMENDATION_FACTS : based_on
+    INFERENCES ||--o{ RECOMMENDATION_INFERENCES : supports
+    RECOMMENDATIONS ||--o{ RECOMMENDATION_INFERENCES : based_on
+
+    ANALYSES ||--o| REPORTS : produces
+    REPORTS ||--o{ REPORT_SECTIONS : contains
+
+    ANALYSIS_RULES ||--o{ ANALYSIS_RULE_EXECUTIONS : is_executed
+    ANALYSES ||--o{ ANALYSIS_RULE_EXECUTIONS : logs
+    ANALYSES ||--o{ ANALYSIS_EVENTS : logs
+
+    USERS {
+        uuid id
+        string name
+        string email
+        string password_hash
+        string role
+        datetime created_at
+    }
+
+    ANALYSES {
+        uuid id
+        uuid created_by_user_id
+        string title
+        string description
+        string source_type
+        string status
+        datetime created_at
+        datetime completed_at
+    }
+
+    AUDIO_FILES {
+        uuid id
+        uuid analysis_id
+        string file_name
+        string file_url
+        string mime_type
+        int duration_seconds
+        bigint file_size_bytes
+        datetime uploaded_at
+    }
+
+    PARTICIPANTS {
+        uuid id
+        uuid analysis_id
+        string name
+        string email
+        string role_in_meeting
+        string speaker_label
+    }
+
+    TRANSCRIPTIONS {
+        uuid id
+        uuid analysis_id
+        string language
+        text full_text
+        string provider
+        string status
+        datetime created_at
+    }
+
+    TRANSCRIPT_SEGMENTS {
+        uuid id
+        uuid transcription_id
+        uuid participant_id
+        string speaker_label
+        int start_time_seconds
+        int end_time_seconds
+        text text
+        int sequence_number
+    }
+
+    FACTS {
+        uuid id
+        uuid analysis_id
+        uuid transcript_segment_id
+        text fact_text
+        string category
+        decimal confidence_score
+        text source_quote
+    }
+
+    INFERENCES {
+        uuid id
+        uuid analysis_id
+        uuid transcript_segment_id
+        text inference_text
+        text reasoning_summary
+        string category
+        decimal confidence_score
+        string pattern_strength
+        boolean requires_human_review
+    }
+
+    ANALYSIS_METRICS {
+        uuid id
+        uuid analysis_id
+        uuid participant_id
+        string area
+        string metric_name
+        decimal metric_value
+        datetime created_at
+    }
+
+    ANALYSIS_SCORES {
+        uuid id
+        uuid analysis_id
+        uuid participant_id
+        string score_name
+        decimal score_value
+        string score_range
+        datetime created_at
+    }
+
+    RECOMMENDATIONS {
+        uuid id
+        uuid analysis_id
+        uuid participant_id
+        text recommendation_text
+        string priority
+        string category
+        text justification
+        datetime created_at
+    }
+
+    RECOMMENDATION_FACTS {
+        uuid recommendation_id
+        uuid fact_id
+    }
+
+    RECOMMENDATION_INFERENCES {
+        uuid recommendation_id
+        uuid inference_id
+    }
+
+    REPORTS {
+        uuid id
+        uuid analysis_id
+        uuid generated_by_user_id
+        string title
+        text executive_summary
+        text conclusion
+        string report_status
+        datetime generated_at
+    }
+
+    REPORT_SECTIONS {
+        uuid id
+        uuid report_id
+        string section_title
+        string section_type
+        text content
+        int sequence_number
+    }
+
+    ANALYSIS_RULES {
+        uuid id
+        string name
+        string rule_type
+        text description
+        json content_json
+        string version
+        boolean is_active
+        datetime created_at
+        datetime updated_at
+    }
+
+    ANALYSIS_TAXONOMIES {
+        uuid id
+        string name
+        string taxonomy_type
+        json content_json
+        string version
+        boolean is_active
+        datetime created_at
+        datetime updated_at
+    }
+
+    ANALYSIS_RULE_EXECUTIONS {
+        uuid id
+        uuid analysis_id
+        uuid rule_id
+        json input_json
+        json output_json
+        datetime created_at
+    }
+
+    ANALYSIS_EVENTS {
+        uuid id
+        uuid analysis_id
+        string event_type
+        text description
+        datetime created_at
+    }
+</pre>
+      </div>
+
+      <div class="flow">
+        <div class="flow-item"><strong>1. Entrada</strong><span>Usuário cria análise por upload ou reunião.</span></div>
+        <div class="flow-item"><strong>2. Conversa</strong><span>Áudio vira transcrição e segmentos.</span></div>
+        <div class="flow-item"><strong>3. Análise</strong><span>Métricas, scores, fatos e inferências são calculados.</span></div>
+        <div class="flow-item"><strong>4. Regras</strong><span>JSONs de regras e taxonomias controlam a interpretação.</span></div>
+        <div class="flow-item"><strong>5. Saída</strong><span>Recomendações e relatório final são gerados.</span></div>
+      </div>
+    </section>
+
+    <aside class="panel info">
+      <div class="panel-header">
+        <h2>Explicação</h2>
+        <span class="badge" id="tableBadge">USERS</span>
+      </div>
+
+      <div class="info-body">
+        <h3 class="table-name" id="tableTitle">USERS</h3>
+        <p class="description" id="tableDescription"></p>
+
+        <div class="section-title">Campos principais</div>
+        <div class="field-list" id="fieldList"></div>
+
+        <div class="section-title">Tabelas</div>
+        <div class="mini-map" id="miniMap"></div>
+
+        <div class="hint" id="tableHint"></div>
+      </div>
+    </aside>
+  </main>
+
+  <script type="module">
+    import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs";
+
+    const tableInfo = {"USERS": {"description": "Guarda os usuários do sistema. Um usuário pode criar várias análises de negociação.", "fields": {"id": "Identificador único do usuário.", "name": "Nome exibido no sistema.", "email": "Email usado para login e identificação.", "password_hash": "Senha armazenada de forma protegida.", "role": "Perfil de acesso, como admin, analyst ou viewer.", "created_at": "Data de criação."}, "hint": "Origem do fluxo: identifica quem iniciou a análise e quem pode acessar relatórios."}, "ANALYSES": {"description": "Entidade central. Cada registro representa uma negociação analisada.", "fields": {"id": "Identificador único da análise.", "created_by_user_id": "Usuário responsável por criar a análise.", "title": "Nome da negociação ou reunião.", "description": "Contexto geral da análise.", "source_type": "Origem: upload ou meeting.", "status": "Estado: created, transcribing, analyzing, completed ou failed.", "created_at": "Data de criação.", "completed_at": "Data de conclusão."}, "hint": "Quase todas as tabelas se conectam a ANALYSES porque ela representa o caso de negócio analisado."}, "AUDIO_FILES": {"description": "Guarda a referência do arquivo de áudio usado como entrada.", "fields": {"id": "Identificador do arquivo.", "analysis_id": "Análise à qual o áudio pertence.", "file_name": "Nome do arquivo.", "file_url": "Caminho ou URL no storage.", "mime_type": "Tipo do arquivo.", "duration_seconds": "Duração em segundos.", "file_size_bytes": "Tamanho do arquivo.", "uploaded_at": "Data de upload."}, "hint": "O áudio em si normalmente fica em storage. O banco guarda metadados e referência."}, "PARTICIPANTS": {"description": "Guarda pessoas envolvidas ou identificadas na negociação.", "fields": {"id": "Identificador do participante.", "analysis_id": "Análise relacionada.", "name": "Nome do participante.", "email": "Email opcional.", "role_in_meeting": "Papel na negociação.", "speaker_label": "Rótulo na transcrição, como Speaker 1."}, "hint": "Ajuda a transformar rótulos de fala em pessoas ou papéis compreensíveis."}, "TRANSCRIPTIONS": {"description": "Guarda a transcrição completa da análise.", "fields": {"id": "Identificador da transcrição.", "analysis_id": "Análise relacionada.", "language": "Idioma principal.", "full_text": "Texto completo.", "provider": "Serviço de transcrição.", "status": "Estado da transcrição.", "created_at": "Data de criação."}, "hint": "A transcrição completa é útil para consulta, mas a análise detalhada usa segmentos."}, "TRANSCRIPT_SEGMENTS": {"description": "Divide a transcrição em falas menores, com participante, tempo e ordem.", "fields": {"id": "Identificador do segmento.", "transcription_id": "Transcrição de origem.", "participant_id": "Participante associado.", "speaker_label": "Rótulo do falante.", "start_time_seconds": "Início no áudio.", "end_time_seconds": "Fim no áudio.", "text": "Texto do trecho.", "sequence_number": "Ordem da fala."}, "hint": "Dá rastreabilidade: fatos, inferências e evidências podem apontar para o trecho exato."}, "FACTS": {"description": "Guarda informações objetivas identificadas na conversa.", "fields": {"id": "Identificador do fato.", "analysis_id": "Análise relacionada.", "transcript_segment_id": "Trecho que sustenta o fato.", "fact_text": "Descrição objetiva.", "category": "Categoria do fato.", "confidence_score": "Confiança na extração.", "source_quote": "Frase original como evidência."}, "hint": "Fato deve representar algo dito, confirmado ou objetivamente extraído."}, "INFERENCES": {"description": "Guarda interpretações feitas a partir da conversa, separadas dos fatos.", "fields": {"id": "Identificador da inferência.", "analysis_id": "Análise relacionada.", "transcript_segment_id": "Trecho que motivou a inferência.", "inference_text": "Interpretação sugerida.", "reasoning_summary": "Resumo da justificativa.", "category": "Categoria interpretativa.", "confidence_score": "Confiança estimada.", "pattern_strength": "Força do padrão: weak, moderate ou strong.", "requires_human_review": "Indica se precisa revisão humana."}, "hint": "Inferência não deve ser apresentada como fato. Ela precisa de evidência, confiança e justificativa."}, "ANALYSIS_METRICS": {"description": "Guarda métricas calculadas a partir da transcrição, por análise, participante e área.", "fields": {"id": "Identificador da métrica.", "analysis_id": "Análise relacionada.", "participant_id": "Participante relacionado, quando aplicável.", "area": "Área analisada, como communication_style ou power_dynamics.", "metric_name": "Nome da métrica.", "metric_value": "Valor calculado.", "created_at": "Data de criação."}, "hint": "Aqui entram contagens e taxas como open_questions_count, talk_time_ratio e concessions_count."}, "ANALYSIS_SCORES": {"description": "Guarda scores calculados pelo sistema, normalmente em escala 0-100.", "fields": {"id": "Identificador do score.", "analysis_id": "Análise relacionada.", "participant_id": "Participante relacionado, quando aplicável.", "score_name": "Nome do score.", "score_value": "Valor calculado.", "score_range": "Faixa do score, por exemplo 0-100.", "created_at": "Data de criação."}, "hint": "Aqui entram scores como communication_style_score, confidence_score e relationship_building_score."}, "RECOMMENDATIONS": {"description": "Guarda recomendações geradas ao final da análise.", "fields": {"id": "Identificador da recomendação.", "analysis_id": "Análise relacionada.", "participant_id": "Participante alvo, quando aplicável.", "recommendation_text": "Ação sugerida.", "priority": "Prioridade: low, medium, high ou none.", "category": "Tipo da recomendação.", "justification": "Motivo da recomendação.", "created_at": "Data de criação."}, "hint": "As recomendações devem estar ligadas a evidências, métricas, fatos ou inferências."}, "RECOMMENDATION_FACTS": {"description": "Tabela de ligação entre recomendações e fatos.", "fields": {"recommendation_id": "Recomendação relacionada.", "fact_id": "Fato usado como suporte."}, "hint": "Permite que uma recomendação seja justificada por vários fatos."}, "RECOMMENDATION_INFERENCES": {"description": "Tabela de ligação entre recomendações e inferências.", "fields": {"recommendation_id": "Recomendação relacionada.", "inference_id": "Inferência usada como suporte."}, "hint": "Ajuda a explicar quando uma recomendação nasceu de uma interpretação."}, "REPORTS": {"description": "Guarda o relatório final gerado para a análise.", "fields": {"id": "Identificador do relatório.", "analysis_id": "Análise relacionada.", "generated_by_user_id": "Usuário que gerou ou aprovou.", "title": "Título do relatório.", "executive_summary": "Resumo executivo.", "conclusion": "Conclusão final.", "report_status": "draft, final ou archived.", "generated_at": "Data de geração."}, "hint": "Saída principal do projeto: relatório com resumo, fatos, inferências, recomendações e conclusão."}, "REPORT_SECTIONS": {"description": "Divide o relatório em seções organizadas e reordenáveis.", "fields": {"id": "Identificador da seção.", "report_id": "Relatório relacionado.", "section_title": "Título da seção.", "section_type": "summary, facts, inferences, recommendations, evidence, limitations ou conclusion.", "content": "Conteúdo textual da seção.", "sequence_number": "Ordem de exibição."}, "hint": "Permite alterar o formato do relatório sem mudar a estrutura principal do banco."}, "ANALYSIS_RULES": {"description": "Guarda regras do motor de análise: interpretação, confiança, prioridade, recomendações, segurança e relatório.", "fields": {"id": "Identificador da regra.", "name": "Nome do arquivo ou conjunto de regras.", "rule_type": "Tipo da regra.", "description": "Descrição curta.", "content_json": "JSON completo da regra.", "version": "Versão da regra.", "is_active": "Indica se a regra está ativa.", "created_at": "Data de criação.", "updated_at": "Data de atualização."}, "hint": "Aqui entram os JSONs como confidence_rules, interpretation_rules, priority_rules e recommendation_generation_rules."}, "ANALYSIS_TAXONOMIES": {"description": "Guarda taxonomias, áreas, categorias, métricas esperadas e modelos de scores.", "fields": {"id": "Identificador da taxonomia.", "name": "Nome da taxonomia.", "taxonomy_type": "Tipo: areas_and_metrics, output_schema, scoring_model etc.", "content_json": "JSON completo.", "version": "Versão da taxonomia.", "is_active": "Indica se está ativa.", "created_at": "Data de criação.", "updated_at": "Data de atualização."}, "hint": "Aqui entram analysis_areas.json, area_collection.json e scores.json."}, "ANALYSIS_RULE_EXECUTIONS": {"description": "Registra quais regras foram aplicadas em uma análise e quais entradas/saídas produziram.", "fields": {"id": "Identificador da execução.", "analysis_id": "Análise relacionada.", "rule_id": "Regra aplicada.", "input_json": "Dados usados como entrada.", "output_json": "Resultado gerado pela regra.", "created_at": "Data da execução."}, "hint": "Garante rastreabilidade: permite explicar por que uma recomendação ou interpretação foi gerada."}, "ANALYSIS_EVENTS": {"description": "Registra eventos importantes do fluxo de análise.", "fields": {"id": "Identificador do evento.", "analysis_id": "Análise relacionada.", "event_type": "Tipo do evento.", "description": "Descrição do ocorrido.", "created_at": "Data do evento."}, "hint": "Útil para auditoria e depuração do fluxo."}};
+
+    const tableTitle = document.getElementById("tableTitle");
+    const tableBadge = document.getElementById("tableBadge");
+    const tableDescription = document.getElementById("tableDescription");
+    const fieldList = document.getElementById("fieldList");
+    const tableHint = document.getElementById("tableHint");
+    const miniMap = document.getElementById("miniMap");
+
+    function renderInfo(tableName) {
+      const info = tableInfo[tableName];
+      if (!info) return;
+
+      tableTitle.textContent = tableName;
+      tableBadge.textContent = tableName;
+      tableDescription.textContent = info.description;
+      tableHint.textContent = info.hint;
+
+      fieldList.innerHTML = Object.entries(info.fields)
+        .map(([name, description]) => `
+          <div class="field">
+            <strong>${name}</strong>
+            <span>${description}</span>
+          </div>
+        `)
+        .join("");
+
+      [...miniMap.querySelectorAll("button")].forEach(button => {
+        button.classList.toggle("active", button.dataset.table === tableName);
+      });
+    }
+
+    function normalizeTableName(value) {
+      if (!value) return null;
+      const upper = value.toUpperCase();
+      return Object.keys(tableInfo)
+        .sort((a, b) => b.length - a.length)
+        .find(table => upper.includes(table));
+    }
+
+    function attachMermaidClicks() {
+      const svg = document.querySelector(".mermaid svg");
+      if (!svg) return;
+
+      svg.addEventListener("click", event => {
+        const target = event.target;
+        const group = target.closest("g");
+
+        let tableName = normalizeTableName(target.textContent);
+
+        if (!tableName && group) {
+          tableName = normalizeTableName(group.id || group.textContent);
+        }
+
+        if (tableName) {
+          renderInfo(tableName);
+        }
+      });
+    }
+
+    function renderMiniMap() {
+      miniMap.innerHTML = Object.keys(tableInfo)
+        .map(table => `<button type="button" data-table="${table}">${table}</button>`)
+        .join("");
+
+      miniMap.addEventListener("click", event => {
+        const button = event.target.closest("button");
+        if (!button) return;
+        renderInfo(button.dataset.table);
+      });
+    }
+
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: "base",
+      securityLevel: "loose",
+      themeVariables: {
+        primaryColor: "#eff6ff",
+        primaryTextColor: "#0f172a",
+        primaryBorderColor: "#93c5fd",
+        lineColor: "#64748b",
+        secondaryColor: "#f8fafc",
+        tertiaryColor: "#ecfeff",
+        fontFamily: "Inter, ui-sans-serif, system-ui"
+      }
+    });
+
+    renderMiniMap();
+    renderInfo("USERS");
+    setTimeout(attachMermaidClicks, 900);
+  </script>
+</body>
+</html>
