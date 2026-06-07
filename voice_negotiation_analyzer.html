@@ -1,0 +1,1229 @@
+<!doctype html>
+<html lang="pt">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Voice Negotiation Analyzer — Visão do Projeto</title>
+  <style>
+    :root {
+      --bg: #f6f8fb;
+      --surface: #ffffff;
+      --surface-soft: #f8fafc;
+      --text: #172033;
+      --muted: #64748b;
+      --primary: #4f46e5;
+      --primary-dark: #3730a3;
+      --accent: #06b6d4;
+      --border: #e2e8f0;
+      --shadow: 0 20px 45px rgba(15, 23, 42, .08);
+      --radius: 22px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(79, 70, 229, .16), transparent 34rem),
+        radial-gradient(circle at top right, rgba(6, 182, 212, .14), transparent 30rem),
+        var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+    }
+
+
+
+    .page { max-width: 1180px; margin: 0 auto; padding: 32px 20px 72px; }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      border-radius: 32px;
+      padding: 56px;
+      color: white;
+      background: linear-gradient(135deg, #111827 0%, #312e81 48%, #0891b2 100%);
+      box-shadow: var(--shadow);
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 420px;
+      height: 420px;
+      border-radius: 999px;
+      right: -150px;
+      top: -170px;
+      background: rgba(255,255,255,.12);
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid rgba(255,255,255,.32);
+      background: rgba(255,255,255,.12);
+      border-radius: 999px;
+      padding: 7px 13px;
+      font-size: 13px;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+    h1 {
+      margin: 20px 0 14px;
+      max-width: 800px;
+      font-size: clamp(34px, 6vw, 66px);
+      line-height: 1.02;
+      letter-spacing: -.055em;
+    }
+    .hero p { max-width: 760px; color: rgba(255,255,255,.86); font-size: 18px; }
+
+    .module-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+      margin: 24px 0 34px;
+    }
+    .module-card {
+      background: rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.20);
+      border-radius: 20px;
+      padding: 18px;
+      backdrop-filter: blur(10px);
+    }
+    .module-card b { display:block; font-size: 15px; margin-bottom: 4px; }
+    .module-card span { color: rgba(255,255,255,.75); font-size: 13px; }
+
+    .layout { display: grid; grid-template-columns: 250px 1fr; gap: 28px; margin-top: 28px; align-items: start; }
+    .toc { position: sticky; top: 18px; background: rgba(255,255,255,.82); backdrop-filter: blur(14px); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; box-shadow: 0 10px 30px rgba(15, 23, 42, .05); }
+    .toc strong { display:block; margin-bottom: 12px; font-size: 14px; color: #0f172a; }
+    .toc a { display:block; color: var(--muted); text-decoration: none; padding: 8px 0; font-size: 14px; border-bottom: 1px solid #eef2f7; }
+    .toc a:last-child { border-bottom: 0; }
+    .toc a:hover { color: var(--primary); }
+
+    main { display: grid; gap: 22px; }
+    article { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 32px; box-shadow: var(--shadow); }
+    h2 { margin: 36px 0 14px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 30px; line-height: 1.15; letter-spacing: -.03em; color: #111827; }
+    h2:first-child { margin-top: 0; padding-top: 0; border-top: 0; }
+    h3 { margin: 28px 0 12px; font-size: 21px; color: #1e293b; }
+    p { margin: 12px 0; }
+    a { color: var(--primary); }
+    code { padding: 2px 6px; border-radius: 7px; background: #eef2ff; color: #3730a3; font-size: .92em; }
+    pre { overflow: auto; background: #0f172a; color: #e5e7eb; padding: 20px; border-radius: 18px; box-shadow: inset 0 0 0 1px rgba(255,255,255,.08); }
+    pre code { background: transparent; color: inherit; padding: 0; }
+    ul, ol { padding-left: 1.35rem; }
+    li { margin: 6px 0; }
+
+    table { width: 100%; border-collapse: separate; border-spacing: 0; margin: 18px 0 26px; overflow: hidden; border: 1px solid var(--border); border-radius: 16px; font-size: 14px; }
+    th { background: #eef2ff; color: #312e81; text-align: left; font-weight: 800; }
+    th, td { padding: 13px 15px; border-bottom: 1px solid var(--border); vertical-align: top; }
+    tr:last-child td { border-bottom: 0; }
+    tbody tr:nth-child(even) { background: var(--surface-soft); }
+
+    .flow { display: grid; gap: 8px; margin: 16px 0 24px; max-width: 700px; }
+    .flow div { background: linear-gradient(180deg, #ffffff, #f8fafc); border: 1px solid var(--border); border-radius: 14px; padding: 12px 16px; font-weight: 650; box-shadow: 0 8px 20px rgba(15,23,42,.04); }
+    .flow span { color: var(--primary); font-weight: 900; text-align: center; }
+    .flow.compact { max-width: 560px; }
+    .prompt-list { display: flex; flex-wrap: wrap; gap: 8px; margin: -8px 0 22px; }
+    .prompt-list span { background: #ecfeff; color: #155e75; border: 1px solid #cffafe; border-radius: 999px; padding: 6px 10px; font-size: 13px; font-weight: 700; }
+
+    .callout { margin: 22px 0; padding: 18px 20px; border-radius: 18px; border: 1px solid #c7d2fe; background: #eef2ff; color: #312e81; }
+    .footer-note { color: var(--muted); font-size: 13px; text-align: center; margin-top: 28px; }
+
+    @media (max-width: 900px) {
+      .hero { padding: 34px 24px; }
+      .module-grid { grid-template-columns: 1fr 1fr; }
+      .layout { grid-template-columns: 1fr; }
+      .toc { position: static; }
+      article { padding: 24px; }
+    }
+    @media (max-width: 560px) {
+      .module-grid { grid-template-columns: 1fr; }
+      table { display: block; overflow-x: auto; white-space: nowrap; }
+    }
+    .flow-section {
+  max-width: 760px;
+  margin: 40px auto;
+  padding: 32px;
+  background: #f8fafc;
+  border-radius: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.flow-section h2 {
+  text-align: center;
+  margin-bottom: 32px;
+  color: #1e293b;
+  font-size: 28px;
+}
+
+.flowchart {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.flow-step {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-left: 6px solid #3b82f6;
+  border-radius: 14px;
+  padding: 18px 22px;
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.06);
+}
+
+.flow-step p {
+  margin: 0;
+  color: #334155;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.step-number {
+  width: 34px;
+  height: 34px;
+  min-width: 34px;
+  border-radius: 50%;
+  background: #3b82f6;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.flow-arrow {
+  font-size: 28px;
+  color: #64748b;
+  margin: 10px 0;
+}
+
+.final-step {
+  border-left-color: #22c55e;
+}
+
+.final-step .step-number {
+  background: #22c55e;
+}
+
+@media (max-width: 600px) {
+  .flow-section {
+    padding: 24px 18px;
+  }
+
+  .flow-step {
+    padding: 16px;
+  }
+
+  .flow-section h2 {
+    font-size: 22px;
+  }
+}
+.flow-step-list {
+  align-items: flex-start;
+}
+
+.flow-step-list > div {
+  width: 100%;
+}
+
+.prompt-list {
+  margin: 12px 0 0;
+  padding-left: 20px;
+  color: #475569;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.prompt-list li {
+  margin-bottom: 4px;
+}
+.content-section {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 32px;
+  background: #f8fafc;
+  border-radius: 20px;
+  font-family: Arial, sans-serif;
+  color: #334155;
+}
+
+.content-section h2 {
+  margin-bottom: 20px;
+  color: #1e293b;
+  font-size: 28px;
+}
+
+.content-section h3 {
+  margin-top: 32px;
+  margin-bottom: 16px;
+  color: #1e293b;
+  font-size: 22px;
+}
+
+.content-section p {
+  font-size: 16px;
+  line-height: 1.7;
+  margin-bottom: 16px;
+}
+
+.compact-flow {
+  margin: 28px 0;
+}
+
+.metric-list {
+  padding-left: 22px;
+  line-height: 1.7;
+}
+
+.metric-list li {
+  margin-bottom: 10px;
+}
+
+.module-chain {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  margin: 20px 0 28px;
+}
+
+.module-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-left: 6px solid #6366f1;
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.05);
+}
+
+.module-card h4 {
+  margin: 0 0 10px;
+  color: #1e293b;
+  font-size: 18px;
+}
+
+.module-card p {
+  margin: 0;
+}
+
+.score-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 16px;
+  background: #ffffff;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.05);
+}
+
+.score-table th,
+.score-table td {
+  padding: 14px 18px;
+  text-align: left;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.score-table th {
+  background: #e2e8f0;
+  color: #1e293b;
+}
+
+.score-table tr:last-child td {
+  border-bottom: none;
+}
+
+@media (max-width: 600px) {
+  .content-section {
+    padding: 24px 18px;
+  }
+
+  .content-section h2 {
+    font-size: 24px;
+  }
+
+  .content-section h3 {
+    font-size: 20px;
+  }
+}
+.final-section {
+  border-top: 6px solid #0f172a;
+}
+
+.final-section h2 {
+  color: #0f172a;
+}
+
+.final-section strong {
+  color: #1e293b;
+}
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="hero">
+      <span class="eyebrow">Análise de conversa com uso de I.A.</span>
+      <h1>Voice Negotiation Analyzer</h1>
+      <div class="module-grid" aria-label="Módulos principais">
+        <div class="module-card"><b>01 · Voice Recorder</b><span>Captura, gravação ou streaming do áudio.</span></div>
+        <div class="module-card"><b>02 · Transcription Manager</b><span>Conversão de áudio em transcrição estruturada.</span></div>
+        <div class="module-card"><b>03 · Behavior Analyzer</b><span>Extração de sinais, métricas, padrões e scores.</span></div>
+        <div class="module-card"><b>04 · Report Generator</b><span>Geração do relatório final com fatos e inferências.</span></div>
+      </div>
+    </header>
+
+    <div class="layout">
+      <aside class="toc">
+        <strong>Índice</strong>
+        <a href="#voice-recorder">Voice Recorder</a>
+        <a href="#transcription-manager">Transcription Manager</a>
+        <a href="#behavior-analyzer">Behavior Analyzer</a>
+        <a href="#report-generator">Report Generator</a>
+        <a href="#final-comments">Comentários finais</a>
+      </aside>
+      <main>
+        <article>
+          <p>O projeto parece focado em reuniões de negociação profissional.
+<p>Em termos práticos, transformar conversas em dados analisáveis.
+O sistema teria 4 módulos principais, e em dois o uso de I.A. parece necessário.</p>
+<h3 >Voice Recorder</h3>
+<p>Responsável por captar o áudio da conversa.
+Pode ser usado em reuniões, entrevistas ou negociações. A gravação poderia ser iniciada manualmente ou fazer parte de um fluxo automático.
+É indicado que o áudio virá de uma gravação, mas considerei a possibilidade de não se armazernar a conversa pois o Stream.io é mencionado, e essa é uma plaaforma para conversas em tempo real, e não para o armazenamento de áudio/vídeo.</p>
+<h3>Transcription Manager</h3>
+<p>Responsável por converter áudio em texto.
+O ponto importante aqui é que o objetivo não é apenas gerar uma transcrição simples. O 'speaker identification' é mencionado, ou seja, saber quem falou o quê.
+Sem identificação dos participantes, a análise comportamental pode não fazer sentido.</p>
+<h3>Behavior Analyzer</h3>
+<table>
+<thead>
+<tr>
+  <th>Análise do Behaviour Analyzer</th>
+  <th>O que acontece</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Táticas de negociação</strong></td>
+  <td>Identifica sinais como ancoragem, pressão, concessão, objeção; transforma em score; justifica com trechos; separa evidência de interpretação.</td>
+</tr>
+<tr>
+  <td><strong>Estilo de comunicação</strong></td>
+  <td>Extrai sinais como assertividade, clareza, tom colaborativo/competitivo; pode virar classificação ou score; precisa de evidências textuais.</td>
+</tr>
+<tr>
+  <td><strong>Níveis de confiança</strong></td>
+  <td>Detecta sinais como hesitação, firmeza, linguagem modal, contradições; transforma em nível/score; deve deixar claro que é inferência.</td>
+</tr>
+<tr>
+  <td><strong>Frequência de concessões</strong></td>
+  <td>Primeiro identifica momentos de concessão; depois conta frequência, distribuição e contexto; justifica com trechos.</td>
+</tr>
+<tr>
+  <td><strong>Dinâmica de poder</strong></td>
+  <td>Analisa quem conduz a conversa, quem define termos, quem cede mais, quem interrompe ou controla decisões; é bastante inferencial.</td>
+</tr>
+<tr>
+  <td><strong>Inteligência emocional</strong></td>
+  <td>Extrai sinais de escuta ativa, empatia, regulação emocional, resposta a tensão; normalmente exige cuidado para não afirmar demais.</td>
+</tr>
+<tr>
+  <td><strong>Padrões de decisão</strong></td>
+  <td>Identifica momentos de decisão, critérios usados, adiamentos, mudanças de posição; depois resume padrões.</td>
+</tr>
+<tr>
+  <td><strong>Construção de relacionamento</strong></td>
+  <td>Analisa rapport, validação, alinhamento, colaboração, perguntas abertas, manutenção de confiança.</td>
+</tr>
+</tbody>
+</table>
+<p>Existem dois tipos de resultado esperado nesse módulo:</p>
+<p>Primeiro, <strong>métricas quantitativas</strong>::</p>
+<ul>
+<li>score de táticas de negociação;</li>
+<li>nível de confiança;</li>
+<li>frequência de concessões;</li>
+<li>análise de poder/dominância na conversa.</li>
+</ul>
+<p>Segundo, <strong>insights qualitativos</strong>::</p>
+<ul>
+<li>estilo de comunicação;</li>
+<li>pontos fortes;</li>
+<li>pontos fracos;</li>
+<li>padrões recorrentes;</li>
+<li>recomendações para próximas negociações.</li>
+</ul>
+<h2 id="report-generator">Report Generator</h2>
+<p>O módulo <strong>Report Generator</strong> é responsável por transformar os dados gerados nas etapas anteriores em um relatório final estruturado, compreensível e orientado à ação.</p>
+<p>Antes da geração do relatório, o sistema organiza os dados calculados automaticamente, como métricas, scores, eventos identificados, padrões de comportamento, evidências textuais e informações extraídas da transcrição. Essa etapa prepara os dados em um formato consistente para que possam ser avaliados posteriormente por uma I.A.</p>
+<p>Em seguida, a I.A. analisa esse conjunto estruturado de informações e interpreta os principais sinais encontrados na negociação. Nessa fase, a I.A. deve separar explicitamente <strong>fatos</strong> de <strong>inferências</strong>. Os fatos representam informações diretamente observáveis ou declaradas na conversa, enquanto as inferências representam interpretações baseadas em padrões, métricas, contexto e evidências textuais.</p>
+<p>Após a etapa de interpretação, o módulo pode gerar recomendações. Para isso, as regras de geração de recomendações, como <code>recommendation_generation_rules</code>, e as restrições definidas em <code>recommendation_constraints</code>, podem ser adicionadas ao prompt ou ao contexto da I.A.</p>
+<p>Por fim, o relatório final pode ser organizado em seções, como resumo executivo, métricas principais, scores, fatos identificados, inferências, recomendações, evidências e limitações da análise. Dessa forma, o Report Generator atua como a camada final do fluxo: ele transforma dados técnicos e interpretações da I.A. em um documento claro, rastreável e útil para tomada de decisão.</p>
+<h2 id="voice-recorder">Voice Recorder</h2>
+<p>Parte inicial do sistema é a captura do áudio para que seja feita a transcrição. Existem duas variantes:</p>
+<h3>1- Chamada de vídeo dentro da própria aplicação</h3>
+<p>Aqui a aplicação não depende de uma ferramenta externa de reunião. Ela usa uma API/SDK de comunicação em tempo real, como <strong>Twilio, Stream.io, Agora, Daily.co, LiveKit, Vonage Video API, 100ms</strong>, para criar a sala de chamada dentro da própria aplicação web.</p>
+<h4>Fluxo geral</h4>
+<p>
+  O fluxo inicia quando o usuário acessa a aplicação web. Em seguida, o sistema cria uma sala de vídeo e áudio, permitindo que os participantes entrem na chamada. Durante a comunicação, a aplicação pode capturar, gravar ou transmitir o áudio em tempo real. Esse áudio é então enviado para um serviço de transcrição, que converte a fala em texto. Por fim, a transcrição estruturada é salva para uso nas etapas posteriores de análise.
+</p>
+<section class="flow-section">
+  <h2>Fluxo de Transcrição da Chamada</h2>
+
+  <div class="flowchart">
+    <div class="flow-step">
+      <span class="step-number">1</span>
+      <p>Usuário entra na aplicação web</p>
+    </div>
+
+    <div class="flow-arrow">↓</div>
+
+    <div class="flow-step">
+      <span class="step-number">2</span>
+      <p>Aplicação cria uma sala de vídeo/áudio</p>
+    </div>
+
+    <div class="flow-arrow">↓</div>
+
+    <div class="flow-step">
+      <span class="step-number">3</span>
+      <p>Participantes entram na chamada</p>
+    </div>
+
+    <div class="flow-arrow">↓</div>
+
+    <div class="flow-step">
+      <span class="step-number">4</span>
+      <p>Aplicação captura, grava ou faz streaming do áudio</p>
+    </div>
+
+    <div class="flow-arrow">↓</div>
+
+    <div class="flow-step">
+      <span class="step-number">5</span>
+      <p>Áudio é enviado para o serviço de transcrição</p>
+    </div>
+
+    <div class="flow-arrow">↓</div>
+
+    <div class="flow-step final-step">
+      <span class="step-number">6</span>
+      <p>Transcrição é salva para análise posterior</p>
+    </div>
+  </div>
+</section>
+<h4>Vantagens</h4>
+<ul>
+<li>não precisa guardar o áudio completo;</li>
+<li>melhor para privacidade;</li>
+<li>permite transcrição em tempo real;</li>
+<li>é possível identificar quem é cada participante;</li>
+<li>dependendo da API escolhida, é possível associar áudio/transcrição ao participante correto;</li>
+</ul>
+<h4>Limitações</h4>
+<ul>
+<li>se ocorrer um erro, não há áudio salvo para reprocessar;</li>
+<li>precisa WebSocket/streaming;</li>
+<li>diarização pode ser mais difícil;</li>
+<li>implementação mais complexa: é preciso implementar sala, permissões de microfone/câmara, UX da chamada, estados de conexão</li>
+</ul>
+<h3>2- Upload de áudio</h3>
+<p>Aqui a aplicação não precisa necessariamente controlar a chamada. Ela oferece uma funcionalidade de upload.</p>
+<p>
+  Nesse fluxo, o usuário pode gravar um áudio fora da aplicação, utilizando qualquer dispositivo ou ferramenta disponível. Depois, ele faz o upload do ficheiro na plataforma. O backend recebe o áudio, encaminha o conteúdo para um serviço de transcrição e, ao final do processamento, salva a transcrição para uso nas etapas posteriores de análise.
+</p>
+<section class="flow-section">
+  <h2>Fluxo de Transcrição por Upload de Áudio</h2>
+
+  <div class="flowchart">
+    <div class="flow-step">
+      <span class="step-number">1</span>
+      <p>Usuário grava áudio em qualquer lugar</p>
+    </div>
+
+    <div class="flow-arrow">↓</div>
+
+    <div class="flow-step">
+      <span class="step-number">2</span>
+      <p>Usuário faz upload do ficheiro na aplicação</p>
+    </div>
+
+    <div class="flow-arrow">↓</div>
+
+    <div class="flow-step">
+      <span class="step-number">3</span>
+      <p>Backend recebe o áudio</p>
+    </div>
+
+    <div class="flow-arrow">↓</div>
+
+    <div class="flow-step">
+      <span class="step-number">4</span>
+      <p>Áudio é enviado para o serviço de transcrição</p>
+    </div>
+
+    <div class="flow-arrow">↓</div>
+
+    <div class="flow-step final-step">
+      <span class="step-number">5</span>
+      <p>Transcrição é salva para análise posterior</p>
+    </div>
+  </div>
+</section>
+<p>Esse áudio pode ter várias origens:
+gravação feita no telemóvel ou computador
+gravação gerada pela própria chamada da aplicação
+gravação gerada e exportada através de outra aplicação de reunião (Teams por exemplo)</p>
+<h4>Vantagens</h4>
+<ul>
+<li>tecnicamente simples;</li>
+<li>permite reprocessar o áudio;</li>
+<li>melhor para auditoria;</li>
+<li>normalmente gera transcrição mais estável porque o áudio completo está disponível.</li>
+</ul>
+<h4>Limitações</h4>
+<ul>
+<li>precisa armazenar áudio;</li>
+<li>aumenta risco legal/privacidade;</li>
+<li>exige política de retenção;</li>
+<li>precisa pensar no storage;</li>
+<li>o custo pode aumentar rápido, pois ficheiros de áudio demandam mais espaço para armazenamento</li>
+</ul>
+<p>O serviço de storage pode ser Azure Blob Storage, AWS S3, Google Cloud Storage, Firebase Storage, Supabase Storage ou servidor próprio.
+A base de dados é necessária para guardar metadados como reunião, participantes, data, path do ficheiro, status da transcrição e resultado da análise.</p>
+<p>Sobre GDPR: voz identificável é dado pessoal. O GDPR exige uma base legal para tratamento de dados pessoais, como consentimento e brigação legal. [https://gdpr-info.eu/art-6-gdpr]
+Portanto, a aplicação deve ter:
+consentimento claro antes da gravação
+finalidade explícita: transcrição/análise
+política de retenção
+possibilidade de apagar dados quando aplicável
+controlo de acesso
+encriptação em trânsito e repouso
+logs de acesso
+política de privacidade
+contratos/DPA com fornecedores externos</p>
+<h3>Diferença do fluxo: upload vs streaming</h3>
+<table>
+<thead>
+<tr>
+  <th>Critério</th>
+  <th>Upload / batch</th>
+  <th>Streaming / real-time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Entrada</td>
+  <td>Ficheiro completo</td>
+  <td>Chunks de áudio</td>
+</tr>
+<tr>
+  <td>Momento</td>
+  <td>Depois da chamada</td>
+  <td>Durante a chamada</td>
+</tr>
+<tr>
+  <td>Complexidade</td>
+  <td>Menor</td>
+  <td>Maior</td>
+</tr>
+<tr>
+  <td>Latência</td>
+  <td>Alta, pois espera processar</td>
+  <td>Baixa</td>
+</tr>
+<tr>
+  <td>Reprocessamento</td>
+  <td>Sim, se guardar áudio</td>
+  <td>Não, se não guardar áudio</td>
+</tr>
+<tr>
+  <td>Diarização</td>
+  <td>Geralmente mais fácil</td>
+  <td>Pode ser mais complexa</td>
+</tr>
+<tr>
+  <td>Privacidade</td>
+  <td>Pior se guardar áudio</td>
+  <td>Melhor se salvar só texto</td>
+</tr>
+</tbody>
+</table>
+<h2 id="transcription-manager">Transcription Manager</h2>
+<h3>Serviços Speech-to-Text</h3>
+<p>Speech-to-Text, ou STT, é o serviço que converte áudio em texto, ou seja, realiza a transcrição do áudio. Ele recebe ficheiro ou stream de áudio e retorna a transcrição.
+Todos tem suporte para o idioma Português e é possível realizar a transcrição via upload.</p>
+<table>
+<thead>
+<tr>
+  <th>Serviço STT</th>
+  <th style="text-align:right">Diarização nativa?</th>
+  <th style="text-align:right">Streaming / tempo real?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Whisper</strong></td>
+  <td style="text-align:right">Não</td>
+  <td style="text-align:right">Sim / validar modelo</td>
+</tr>
+<tr>
+  <td><strong>Deepgram</strong></td>
+  <td style="text-align:right">Sim</td>
+  <td style="text-align:right">Sim</td>
+</tr>
+<tr>
+  <td><strong>AssemblyAI</strong></td>
+  <td style="text-align:right">Sim</td>
+  <td style="text-align:right">Sim</td>
+</tr>
+<tr>
+  <td><strong>Rev.ai</strong></td>
+  <td style="text-align:right">Sim</td>
+  <td style="text-align:right">Sim / validar produto</td>
+</tr>
+<tr>
+  <td><strong>Speechmatics</strong></td>
+  <td style="text-align:right">Sim</td>
+  <td style="text-align:right">Sim</td>
+</tr>
+<tr>
+  <td><strong>Soniox</strong></td>
+  <td style="text-align:right">Sim</td>
+  <td style="text-align:right">Sim</td>
+</tr>
+</tbody>
+</table>
+<h3>Nota importante</h3>
+<table>
+<thead>
+<tr>
+  <th>Conceito</th>
+  <th>O que significa</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Identificação de participante</strong></td>
+  <td>A plataforma sabe qual utilizador está conectado à chamada</td>
+</tr>
+<tr>
+  <td><strong>Diarização</strong></td>
+  <td>O STT analisa o áudio e separa quem falou em cada trecho</td>
+</tr>
+<tr>
+  <td><strong>Mapeamento speaker → participante</strong></td>
+  <td>O sistema associa a fala transcrita ao participante real</td>
+</tr>
+</tbody>
+</table>
+<p>O sistema depende a identificação de cada ator participante das transcrições.</p>
+<p>Todas as plataformas citadas para criar chamadas dentro da aplicação web tem possibilidade de gravar chamada e de identificar o participante da chamada.</p>
+<table>
+<thead>
+<tr>
+  <th>Plataforma</th>
+  <th style="text-align:right">STT</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Twilio Video</strong></td>
+  <td style="text-align:right">Nativo</td>
+</tr>
+<tr>
+  <td><strong>Daily.co</strong></td>
+  <td style="text-align:right">Nativo</td>
+</tr>
+<tr>
+  <td><strong>Agora</strong></td>
+  <td style="text-align:right">Nativo</td>
+</tr>
+<tr>
+  <td><strong>LiveKit</strong></td>
+  <td style="text-align:right">Via integração</td>
+</tr>
+<tr>
+  <td><strong>Stream.io Video</strong></td>
+  <td style="text-align:right">Nativo</td>
+</tr>
+<tr>
+  <td><strong>Vonage Video API</strong></td>
+  <td style="text-align:right">Via integração</td>
+</tr>
+<tr>
+  <td><strong>100ms</strong></td>
+  <td style="text-align:right">Pós-chamada</td>
+</tr>
+</tbody>
+</table>
+<p>É importante identificar o participante para a diarização posterior e também para as análises.</p>
+<h2 id="normalizacao-da-transcricao">Normalização da transcrição</h2>
+<p>Após a captura ou upload do áudio, o sistema deve gerar uma transcrição estruturada. Essa etapa transforma o resultado do serviço de STT em um formato padronizado.
+A normalização é necessária porque diferentes serviços de transcrição podem devolver dados em formatos distintos, e que não estão adequadamente preparados para os próximos passos do sistema.
+Exemplo de transcrição estruturada:</p>
+<pre><code class="language-json">{
+  &quot;meeting_id&quot;: &quot;meeting_001&quot;,
+  &quot;language&quot;: &quot;pt&quot;,
+  &quot;segments&quot;: [
+    {
+      &quot;speaker&quot;: &quot;speaker_1&quot;,
+      &quot;speaker_label&quot;: &quot;Cliente&quot;,
+      &quot;start&quot;: &quot;00:03:10&quot;,
+      &quot;end&quot;: &quot;00:03:15&quot;,
+      &quot;text&quot;: &quot;O concorrente me ofereceu mais barato.&quot;
+    }
+  ]
+}
+</code></pre>
+<p>Cada item em <code>segments</code> representa uma fala identificada na conversa. Essa estrutura permite saber quem falou, quando falou, o que foi dito e qual foi a confiança da transcrição.</p>
+<p>A partir dessa estrutura, o sistema consegue executar as próximas etapas:</p>
+<ul>
+<li>identificar fatos;</li>
+<li>detectar inferências;</li>
+<li>calcular métricas;</li>
+<li>gerar scores;</li>
+</ul>
+<p>Essa transcrição estruturada seria o output da etapa de Transcrição, e o input do Behaviour Analyzer.</p>
+<h2 id="behavior-analyzer">Behavior Analyzer</h2>
+<p>O  <strong>Behavior Analyzer</strong> é o módulo responsável por transformar uma transcrição em uma análise comportamental da negociação.
+O input é a transcrição estruturada gerada na etapa anterior.
+Uma ideia é usar uma IA para fazer análise dessa transcrição. Essa análise seria como uma camada de classificação e extração em cima da transcrição
+Uma IA classificaria cada fala ou trecho em categorias previamente definidas.
+Então o Behaviour Analyzer funcionaria como um orquestrador das análises.
+Além da transcrição, o ideal é fornecer mais algumas informações para a IA.
+As informações extras mais úteis seriam:</p>
+<table>
+<thead>
+<tr>
+  <th>Informação extra</th>
+  <th>Por que ajuda</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Tipo de conversa</strong></td>
+  <td>Ajuda a IA a saber se é venda, negociação salarial, suporte, parceria, cobrança</td>
+</tr>
+<tr>
+  <td><strong>Papéis dos participantes</strong></td>
+  <td>Saber quem é cliente, vendedor, comprador, fornecedor, gestor</td>
+</tr>
+<tr>
+  <td><strong>Objetivo da conversa</strong></td>
+  <td>Ajuda a entender se a conversa buscava fechar contrato, renovar serviço, resolver conflito, negociar preço</td>
+</tr>
+<tr>
+  <td><strong>Idioma</strong></td>
+  <td>Ajuda na análise linguística e nos rótulos da saída</td>
+</tr>
+<tr>
+  <td><strong>Timestamps</strong></td>
+  <td>Permitem justificar quando cada sinal ocorreu</td>
+</tr>
+<tr>
+  <td><strong>Identificação dos falantes</strong></td>
+  <td>Necessária para saber quem fez concessões, quem pressionou, quem decidiu.</td>
+</tr>
+<tr>
+  <td><strong>Taxonomia esperada</strong></td>
+  <td>Define quais táticas, estilos, padrões e categorias a IA deve reconhecer</td>
+</tr>
+<tr>
+  <td><strong>Schema de saída</strong></td>
+  <td>Obriga a IA a devolver JSON padronizado</td>
+</tr>
+<tr>
+  <td><strong>Regras de análise</strong></td>
+  <td>Define o que é fato, o que é inferência e quando a IA deve dizer “não há evidência suficiente”</td>
+</tr>
+</tbody>
+</table>
+<p>A parte mais importante além da transcrição é a taxonomia. Uma taxonomia é um dicionário que o sistema usa para saber o que procurar, como agrupar e como nomear os resultados.</p>
+<h3>Exemplo de estrutura enviada para a IA</h3>
+<pre><code class="language-json">{
+  &quot;conversation_context&quot;: {
+    &quot;type&quot;: &quot;&quot;,
+    &quot;language&quot;: &quot;pt&quot;,
+    &quot;objective&quot;: &quot;&quot;,
+    &quot;participants&quot;: [
+      {
+        &quot;speaker&quot;: &quot;&quot;,
+        &quot;role&quot;: &quot;&quot;
+      }
+    ]
+  },
+  &quot;analysis_instructions&quot;: {
+    &quot;use_only_provided_transcript&quot;: true,
+    &quot;do_not_infer_psychological_state_as_fact&quot;: true,
+    &quot;always_include_evidence&quot;: true,
+    &quot;return_insufficient_evidence_when_needed&quot;: true,
+    &quot;separate_fact_from_inference&quot;: true
+  },
+  &quot;taxonomies&quot;: {
+  },
+  &quot;transcript&quot;: [],
+  &quot;output_schema&quot;: {
+  &quot;analysis_metadata&quot;: {
+    &quot;language&quot;: &quot;pt&quot;,
+    &quot;transcript_quality_notes&quot;: [],
+  },
+  &quot;evidence_index&quot;: [
+    {
+      &quot;evidence_id&quot;: &quot;&quot;,
+      &quot;speaker&quot;: &quot;&quot;,
+      &quot;timestamp_start&quot;: &quot;&quot;,
+      &quot;timestamp_end&quot;: &quot;&quot;,
+      &quot;quote&quot;: &quot;&quot;
+    }
+  ]
+}
+}
+</code></pre>
+<h3>Pipeline geral</h3>
+<p>
+  Nessa etapa, o sistema recebe a transcrição estruturada e prepara as informações necessárias para análise. Em seguida, a IA é chamada com prompts especializados, cada um focado em uma dimensão específica da negociação, como táticas utilizadas, estilo de comunicação, concessões, dinâmica de poder e inteligência emocional. Depois da análise, o sistema calcula métricas, guarda evidências, separa fatos de inferências e gera a saída final.
+</p>
+<p>A pipeline geral para esse módulo seria a seguinte:</p>
+<section class="flow-section">
+  <h2>Fluxo de Análise da Transcrição</h2>
+
+  <div class="flowchart">
+    <div class="flow-step">
+      <span class="step-number">1</span>
+      <p>Receber a transcrição estruturada</p>
+    </div>
+
+    <div class="flow-arrow">↓</div>
+
+    <div class="flow-step">
+      <span class="step-number">2</span>
+      <p>Preparar as informações adicionais</p>
+    </div>
+
+    <div class="flow-arrow">↓</div>
+
+    <div class="flow-step flow-step-list">
+      <span class="step-number">3</span>
+
+      <div>
+        <p>Chamar IA com prompts especializados</p>
+
+        <ul class="prompt-list">
+          <li>Prompt de táticas de negociação</li>
+          <li>Prompt de estilo de comunicação</li>
+          <li>Prompt de níveis de confiança</li>
+          <li>Prompt de concessões</li>
+          <li>Prompt de dinâmica de poder</li>
+          <li>Prompt de inteligência emocional</li>
+          <li>Prompt de padrões de decisão</li>
+          <li>Prompt de construção de relacionamento</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="flow-arrow">↓</div>
+
+    <div class="flow-step">
+      <span class="step-number">4</span>
+      <p>Calcular métricas</p>
+    </div>
+
+    <div class="flow-arrow">↓</div>
+
+    <div class="flow-step">
+      <span class="step-number">5</span>
+      <p>Guardar evidências</p>
+    </div>
+
+    <div class="flow-arrow">↓</div>
+
+    <div class="flow-step">
+      <span class="step-number">6</span>
+      <p>Separar fatos de inferências</p>
+    </div>
+
+    <div class="flow-arrow">↓</div>
+
+    <div class="flow-step final-step">
+      <span class="step-number">7</span>
+      <p>Gerar saída final</p>
+    </div>
+  </div>
+</section>
+
+  <h2>Transformação de Sinais em Métricas</h2>
+
+  <p>
+    A lista de taxonomias, outputs esperados e métricas por área pode ser definida em
+    <strong>taxonomy_rules</strong>. Além disso, as regras de privacidade e segurança,
+    descritas em <strong>privacy_and_safety_rules</strong>, também podem ser adicionadas
+    ao prompt para orientar a análise da IA.
+  </p>
+
+  <p>
+    Depois que os sinais comportamentais são extraídos, é necessário transformá-los em
+    métricas. É nessa etapa que a análise deixa de ser apenas qualitativa e passa a ser
+    comparável, mensurável e armazenável.
+  </p>
+
+  <p>
+    A IA deve ser responsável por identificar eventos, sinais e evidências na transcrição.
+    No entanto, o cálculo das métricas não deve ser feito diretamente pela IA. Essa
+    responsabilidade deve ficar com o módulo
+    <strong>Behaviour Analyzer - Metric Counter</strong>, utilizando as regras definidas
+    em <strong>metric_collection</strong>.
+  </p>
+
+  <p>
+    O <strong>Metric Counter</strong> deve contar, agrupar e calcular cada métrica por meio
+    de regras determinísticas. Ao calcular uma métrica, o sistema também deve anexar as
+    evidências utilizadas, permitindo que a análise seja auditável e justificável.
+  </p>
+
+  <p>
+    Uma métrica é uma representação resumida de um comportamento observado.
+  </p>
+
+  <div class="flowchart compact-flow">
+    <div class="flow-step">
+      <span class="step-number">1</span>
+      <p>IA detecta eventos, sinais e evidências</p>
+    </div>
+
+    <div class="flow-arrow">↓</div>
+
+    <div class="flow-step">
+      <span class="step-number">2</span>
+      <p>Sistema conta, agrupa e calcula os dados extraídos</p>
+    </div>
+
+    <div class="flow-arrow">↓</div>
+
+    <div class="flow-step final-step">
+      <span class="step-number">3</span>
+      <p>Resultado é convertido em métricas e scores</p>
+    </div>
+  </div>
+
+  <h3>Tipos de métricas</h3>
+
+  <ul class="metric-list">
+    <li>
+      <strong>Contagem:</strong>
+      quantidade de vezes que um comportamento ocorreu, por exemplo, número de objeções.
+    </li>
+    <li>
+      <strong>Proporção:</strong>
+      relação entre um comportamento e uma unidade de tempo ou contexto, por exemplo,
+      concessões feitas em uma hora.
+    </li>
+    <li>
+      <strong>Score:</strong>
+      pontuação calculada com base em regras, por exemplo, proposta clara + resposta direta.
+    </li>
+    <li>
+      <strong>Classificação:</strong>
+      categoria atribuída a partir de sinais observados, por exemplo, muitos sinais de
+      hesitação indicando insegurança.
+    </li>
+    <li>
+      <strong>Tendência:</strong>
+      padrão observado ao longo de várias interações, por exemplo, fechamento da venda
+      após determinado número de reuniões.
+    </li>
+  </ul>
+
+  <h3>Etapas posteriores à geração das métricas</h3>
+
+  <div class="module-chain">
+    <div class="module-card">
+      <h4>Behaviour Analyzer - Interpreter</h4>
+      <p>
+        Aplica as regras de interpretação definidas em
+        <strong>interpretation_rules</strong> para cada área analisada.
+      </p>
+    </div>
+
+    <div class="module-card">
+      <h4>Behaviour Analyzer - Pattern Search</h4>
+      <p>
+        Verifica se o comportamento apareceu de forma pontual, recorrente ou dominante,
+        com base em <strong>pattern_strength_rules</strong>.
+      </p>
+    </div>
+
+    <div class="module-card">
+      <h4>Behaviour Analyzer - Scorer</h4>
+      <p>
+        Calcula scores a partir das métricas já calculadas, aplicando regras previamente
+        definidas em <strong>scores_rules</strong>.
+      </p>
+    </div>
+  </div>
+
+  <p>
+    Os scores funcionam como regras operacionais para avaliar comportamentos de negociação
+    com base em evidências observáveis. As regras de cálculo devem ser definidas de forma
+    clara para que possam ser aplicadas por algoritmo, e cada métrica pode ter um peso
+    diferente na composição da pontuação final.
+  </p>
+
+  <h3>Níveis sugeridos para scores</h3>
+
+  <table class="score-table">
+    <thead>
+      <tr>
+        <th>Intervalo</th>
+        <th>Nível</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>0–20</td>
+        <td>Muito fraco</td>
+      </tr>
+      <tr>
+        <td>21–40</td>
+        <td>Fraco</td>
+      </tr>
+      <tr>
+        <td>41–60</td>
+        <td>Médio</td>
+      </tr>
+      <tr>
+        <td>61–80</td>
+        <td>Bom</td>
+      </tr>
+      <tr>
+        <td>81–100</td>
+        <td>Muito bom</td>
+      </tr>
+    </tbody>
+  </table>
+
+
+<p>Um exemplo de output para a etapa de <strong>Behaviour Analyzer</strong>:</p>
+<pre><code class="language-json">{
+  &quot;analysis_id&quot;: &quot;&quot;,
+  &quot;conversation_metadata&quot;: {
+    &quot;date&quot;: &quot;2011-01-01&quot;,
+    &quot;participants&quot;: [&quot;v&quot;, &quot;c&quot;],
+    &quot;duration_minutes&quot;: 0,
+    &quot;context&quot;: &quot;&quot;
+  },
+  &quot;metrics&quot;: {},
+  &quot;scores&quot;: {},
+  &quot;interpretations&quot;: [],
+  &quot;evidence&quot;: [],
+  &quot;patterns&quot;: []
+}
+</code></pre>
+
+<section  class="content-section final-section">
+  <h2 id="final-comments">Considerações Finais e Próximos Passos Técnicos</h2>
+
+  <p>
+    A análise apresentada até aqui descreve o funcionamento conceitual do sistema, os
+    principais fluxos de transcrição, a extração de sinais comportamentais, o cálculo de
+    métricas, a geração de scores e a produção da saída final. No entanto, para avançar
+    para uma implementação real, ainda é necessário definir com maior precisão a arquitetura
+    técnica do projeto.
+  </p>
+
+  <p>
+    As próximas decisões devem incluir a escolha das tecnologias de
+    <strong>front-end</strong>, <strong>back-end</strong>, <strong>banco de dados</strong>,
+    <strong>storage</strong>, serviços de <strong>transcrição</strong>, serviços de
+    <strong>inteligência artificial</strong>, autenticação, hospedagem e infraestrutura.
+    Cada uma dessas escolhas impacta diretamente a escalabilidade, a segurança, o custo,
+    a manutenção e a viabilidade do produto.
+  </p>
+
+  <p>
+    A parte de automação com <strong>GitHub Actions</strong> não foi aprofundada neste
+    momento porque ela depende das decisões finais de infraestrutura, ambiente de deploy,
+    estratégia de segurança e permissões de acesso. Além disso, por se tratar de uma
+    aplicação que pode lidar com gravações, transcrições e dados sensíveis de conversas,
+    é importante evitar definir pipelines de CI/CD sem antes estabelecer regras claras de
+    privacidade, segregação de ambientes, gestão de segredos, controle de acesso e proteção
+    de dados.
+  </p>
+
+  <p>
+    A privacidade deve ser tratada como um ponto central do projeto. Como o sistema pode
+    envolver gravações de áudio, chamadas, transcrições e análises comportamentais, será
+    necessário definir políticas claras sobre consentimento dos participantes, tempo de
+    retenção dos ficheiros, criptografia, acesso aos dados, anonimização quando aplicável
+    e exclusão segura das informações.
+  </p>
+
+  <p>
+    Também é necessário considerar os custos operacionais do sistema. Serviços de storage,
+    transcrição, inteligência artificial, banco de dados, processamento, autenticação,
+    monitoramento e hospedagem podem gerar custos recorrentes. Esses gastos devem ser
+    avaliados antes da escolha final das tecnologias, principalmente porque o volume de
+    áudio, o tamanho das transcrições e a frequência de uso da IA podem impactar
+     o custo total da solução.
+  </p>
+
+  <p>
+    A seleção de cada tecnologia deve ser acompanhada de uma análise individual
+    e profunda. Para cada opção considerada, é recomendável avaliar suporte a requisitos
+    funcionais, requisitos de segurança, privacidade, escalabilidade, facilidade de integração, custos, limitações técnicas, documentação disponível e riscos
+    associados.
+  </p>
+
+  <h3>Alguns pontos adicionais de atenção</h3>
+
+  <div class="definition-list">
+    <div class="definition-item">
+      <h4>Requisitos legais e consentimento</h4>
+      <p>
+        Deve ser definido como o consentimento dos participantes será obtido antes da
+        gravação ou transcrição da chamada. Por exemplo, a aplicação pode exibir um aviso
+        informando que a conversa será gravada, transcrita e analisada, exigindo consentimento
+        explícito dos participantes.
+      </p>
+    </div>
+
+    <div class="definition-item">
+      <h4>Controle de acesso aos dados</h4>
+      <p>
+        Deve ser definido quem poderá acessar gravações, transcrições, métricas e relatórios.
+        Esse acesso pode variar conforme o perfil do usuário, como administrador ou
+        gestor por exemplo. O objetivo é evitar que dados sensíveis fiquem
+        disponíveis para pessoas sem autorização.
+      </p>
+    </div>
+
+    <div class="definition-item">
+      <h4>Auditoria e rastreabilidade</h4>
+      <p>
+        O sistema deve registrar informações importantes sobre o processamento dos dados,
+        como quando uma transcrição foi gerada, quais métricas foram calculadas, quais
+        evidências foram usadas e qual versão das regras ou prompts foi aplicada. Isso permite
+        revisar e justificar os resultados posteriormente.
+      </p>
+    </div>
+
+    <div class="definition-item">
+      <h4>Validação dos resultados da IA</h4>
+      <p>
+        Deve ser definido como os resultados gerados pela IA serão avaliados. Apesar de ser uma ferramenta poderosa, são vários os casos de IAs cometendo erros.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+
+        </article>
+      </main>
+    </div>
+    <p class="footer-note">Documento HTML gerado a partir do markdown de planeamento do projeto.</p>
+  </div>
+</body>
+</html>
