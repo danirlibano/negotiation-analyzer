@@ -1,0 +1,287 @@
+{"taxnomies_rules":[
+{
+  "negotiation_tactics": [
+    "anchoring",
+    "counteroffer",
+    "price_objection",
+    "deadline_pressure",
+    "conditional_concession",
+    "competitor_comparison",
+    "threat_to_walk_away",
+    "reciprocity_request",
+    "value_framing",
+    "scarcity_claim",
+    "authority_reference",
+    "silence_or_delay",
+    "bundling",
+    "unbundling",
+    "final_offer",
+    "risk_transfer",
+    "information_request",
+    "commitment_request"
+  ],
+  "negotiation_tactics_output": [
+    {
+      "speaker": "string",
+      "timestamp_start": "string",
+      "timestamp_end": "string",
+      "tactic": "string",
+      "evidence": "string",
+      "explanation": "string",
+      "confidence": 0.0,
+      "fact_or_inference": "fact | inference"
+    }
+  ]
+},
+{
+  "communication_styles": [
+    "assertive",
+    "collaborative",
+    "aggressive",
+    "passive",
+    "defensive",
+    "analytical",
+    "empathetic",
+    "direct",
+    "indirect",
+    "formal",
+    "informal",
+    "unclear",
+    "persuasive",
+    "relationship_oriented",
+    "transactional"
+  ],
+  "communication_style_output": [
+    {
+      "speaker": "string",
+      "primary_style": "string",
+      "secondary_styles": ["string"],
+      "evidence": ["string"],
+      "explanation": "string",
+      "confidence": 0.0,
+      "fact_or_inference": "inference"
+    }
+  ]
+},
+{
+  "confidence_levels": [
+    "high",
+    "medium",
+    "low",
+    "mixed",
+    "insufficient_evidence"
+  ],
+  "confidence_signals": [
+    "firm_language",
+    "clear_position",
+    "use_of_data",
+    "decision_certainty",
+    "hesitation",
+    "modal_language",
+    "contradiction",
+    "frequent_backtracking",
+    "excessive_qualification",
+    "authority_dependency"
+  ],
+  "confidence_levels_output": [
+    {
+      "speaker": "string",
+      "level": "high | medium | low | mixed | insufficient_evidence",
+      "positive_signals": ["string"],
+      "negative_signals": ["string"],
+      "evidence": ["string"],
+      "explanation": "string",
+      "confidence": 0.0,
+      "fact_or_inference": "inference"
+    }
+  ]
+},
+{
+  "concession_types": [
+    "price_discount",
+    "payment_terms_flexibility",
+    "delivery_time_flexibility",
+    "scope_reduction",
+    "scope_expansion_without_cost",
+    "support_inclusion",
+    "contract_term_flexibility",
+    "risk_assumption",
+    "warranty_extension",
+    "deadline_extension",
+    "approval_exception",
+    "non_monetary_concession"
+  ],
+  "concession_condition": [
+    "unconditional",
+    "conditional",
+    "reciprocal",
+    "unclear"
+  ],
+  "concession_events_output": [
+    {
+      "speaker": "string",
+      "timestamp_start": "string",
+      "timestamp_end": "string",
+      "concession_type": "string",
+      "condition_type": "unconditional | conditional | reciprocal | unclear",
+      "what_changed": "string",
+      "evidence": "string",
+      "confidence": 0.0,
+      "fact_or_inference": "fact | inference"
+    }
+  ]
+},
+{
+  "power_dynamics": [
+    "balanced",
+    "buyer_dominant",
+    "seller_dominant",
+    "speaker_1_dominant",
+    "speaker_2_dominant",
+    "shifting_power",
+    "unclear"
+  ],
+  "power_signals": [
+    "sets_terms",
+    "rejects_offer",
+    "controls_topic",
+    "asks_many_questions",
+    "answers_defensively",
+    "makes_concessions",
+    "demands_concessions",
+    "uses_alternative_options",
+    "references_authority",
+    "delays_decision",
+    "imposes_deadline",
+    "controls_closing"
+  ],
+  "power_dynamics_output": {
+    "overall_dynamic": "balanced | buyer_dominant | seller_dominant | shifting_power | unclear",
+    "speaker_analysis": [
+      {
+        "speaker": "string",
+        "power_signals": ["string"],
+        "evidence": ["string"],
+        "interpretation": "string",
+        "confidence": 0.0,
+        "fact_or_inference": "inference"
+      }
+    ],
+    "summary": "string"
+  }
+},
+{
+  "emotional_intelligence_levels": [
+    "high",
+    "medium",
+    "low",
+    "mixed",
+    "insufficient_evidence"
+  ],
+  "emotional_intelligence_signals": [
+    "empathy",
+    "active_listening",
+    "emotional_validation",
+    "self_regulation",
+    "calm_response_to_pressure",
+    "constructive_response_to_objection",
+    "defensiveness",
+    "conflict_escalation",
+    "dismissive_response",
+    "sarcasm_or_hostility",
+    "repair_attempt",
+    "acknowledgement"
+  ],
+  "emotional_intelligence_output": [
+    {
+      "speaker": "string",
+      "level": "high | medium | low | mixed | insufficient_evidence",
+      "positive_signals": ["string"],
+      "negative_signals": ["string"],
+      "evidence": ["string"],
+      "explanation": "string",
+      "confidence": 0.0,
+      "fact_or_inference": "inference"
+    }
+  ]
+},
+{
+  "decision_making_patterns": [
+    "price_driven",
+    "deadline_driven",
+    "risk_averse",
+    "data_driven",
+    "authority_dependent",
+    "consensus_seeking",
+    "condition_based",
+    "delayed_decision",
+    "fast_decision",
+    "emotion_influenced",
+    "comparison_based",
+    "unclear"
+  ],
+  "decision_events": [
+    "acceptance",
+    "rejection",
+    "postponement",
+    "request_for_information",
+    "request_for_approval",
+    "conditional_acceptance",
+    "criteria_statement",
+    "change_of_position"
+  ],
+  "decision_making_patterns_output": [
+    {
+      "speaker": "string",
+      "pattern": "string",
+      "decision_events": [
+        {
+          "event_type": "string",
+          "timestamp_start": "string",
+          "timestamp_end": "string",
+          "evidence": "string"
+        }
+      ],
+      "decision_criteria": ["string"],
+      "explanation": "string",
+      "confidence": 0.0,
+      "fact_or_inference": "inference"
+    }
+  ]
+},
+{
+  "relationship_building_levels": [
+    "strong",
+    "moderate",
+    "weak",
+    "mixed",
+    "insufficient_evidence"
+  ],
+  "relationship_building_signals": [
+    "rapport_building",
+    "positive_acknowledgement",
+    "gratitude",
+    "politeness",
+    "open_question",
+    "shared_goal_language",
+    "collaborative_language",
+    "validation_of_concern",
+    "personal_connection",
+    "trust_building_statement",
+    "respectful_disagreement",
+    "relationship_damage",
+    "transactional_focus_only"
+  ],
+  "relationship_building_output": [
+    {
+      "speaker": "string",
+      "level": "strong | moderate | weak | mixed | insufficient_evidence",
+      "positive_signals": ["string"],
+      "negative_signals": ["string"],
+      "evidence": ["string"],
+      "explanation": "string",
+      "confidence": 0.0,
+      "fact_or_inference": "inference"
+    }
+  ]
+}]}

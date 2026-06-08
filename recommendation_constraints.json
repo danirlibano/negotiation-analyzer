@@ -1,0 +1,13 @@
+{
+  "recommendation_constraints": [
+    "não gerar recomendação sem interpretação anterior",
+    "não gerar recomendação forte se confidence for low",
+    "não recomendar mudanças de personalidade",
+    "recomendar comportamentos observáveis e treináveis",
+    "priorizar ações específicas",
+    "explicar por que a recomendação foi gerada",
+    "associar recomendação a métricas e evidências",
+    "não repetir várias recomendações parecidas",
+    "não gerar mais de 3 a 5 recomendações principais por falante"
+  ]
+}

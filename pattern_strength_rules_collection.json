@@ -1,0 +1,352 @@
+{ "pattern_strength_rules_collection": [
+{
+  "area": "negotiation_tactics",
+  "pattern_strength_rules": [
+    {
+      "condition": "triggered_negotiation_tactic_rules_count == 1 && evidence_count <= 2",
+      "strength": "weak",
+      "meaning": "Há uso pontual de tática de negociação, mas ainda insuficiente para afirmar um padrão consistente."
+    },
+    {
+      "condition": "triggered_negotiation_tactic_rules_count >= 2 && evidence_count >= 3",
+      "strength": "moderate",
+      "meaning": "Há uso recorrente de táticas de negociação em diferentes momentos da conversa."
+    },
+    {
+      "condition": "triggered_negotiation_tactic_rules_count >= 3 && evidence_count >= 5",
+      "strength": "strong",
+      "meaning": "Há padrão forte de uso estratégico de táticas de negociação."
+    },
+    {
+      "condition": "pressure_tactics_count >= 4 || unconditioned_concessions_count >= 4",
+      "strength": "strong",
+      "meaning": "Há padrão forte, mas potencialmente problemático, de pressão ou concessões pouco estratégicas."
+    }
+  ]
+},
+{
+  "area": "communication_style",
+  "pattern_strength_rules": [
+    {
+      "condition": "style_signal_count <= 2",
+      "strength": "weak",
+      "meaning": "Há sinais pontuais de um estilo de comunicação, mas não o suficiente para caracterizar o padrão geral."
+    },
+    {
+      "condition": "style_signal_count >= 3 && style_signal_count <= 5",
+      "strength": "moderate",
+      "meaning": "Há sinais recorrentes de um estilo de comunicação predominante."
+    },
+    {
+      "condition": "style_signal_count >= 6",
+      "strength": "strong",
+      "meaning": "Há padrão forte e consistente de estilo de comunicação."
+    },
+    {
+      "condition": "talk_time_ratio >= 0.65 && interruptions_count >= 3",
+      "strength": "strong",
+      "meaning": "Há padrão forte de comunicação dominante ou interruptiva."
+    },
+    {
+      "condition": "open_questions_rate >= 0.40 && clarification_requests_count >= 2 && summarization_count >= 2",
+      "strength": "strong",
+      "meaning": "Há padrão forte de comunicação exploratória e orientada ao entendimento."
+    },
+    {
+      "condition": "talk_time_ratio <= 0.35 && open_questions_count <= 1",
+      "strength": "strong",
+      "meaning": "Há padrão forte de participação passiva ou reativa."
+    }
+  ]
+},
+{
+  "area": "speaker_confidence",
+  "pattern_strength_rules": [
+    {
+      "condition": "confidence_signal_count <= 2",
+      "strength": "weak",
+      "meaning": "Há poucos sinais para avaliar a confiança demonstrada pelo falante."
+    },
+    {
+      "condition": "confidence_signal_count >= 3 && confidence_signal_count <= 5",
+      "strength": "moderate",
+      "meaning": "Há sinais recorrentes de confiança, cautela ou hesitação."
+    },
+    {
+      "condition": "confidence_signal_count >= 6",
+      "strength": "strong",
+      "meaning": "Há padrão consistente de confiança demonstrada pelo falante."
+    },
+    {
+      "condition": "assertive_statements_count >= 5 && hesitation_signals_count <= 1 && hedging_count <= 2",
+      "strength": "strong",
+      "meaning": "Há padrão forte de comunicação confiante e assertiva."
+    },
+    {
+      "condition": "hedging_count >= 5 || hesitation_signals_count >= 4",
+      "strength": "strong",
+      "meaning": "Há padrão forte de cautela, insegurança ou baixa convicção demonstrada."
+    }
+  ]
+},
+{
+  "area": "interpersonal_trust",
+  "pattern_strength_rules": [
+    {
+      "condition": "trust_related_signal_count <= 2",
+      "strength": "weak",
+      "meaning": "Há poucos sinais para avaliar a confiança entre os participantes."
+    },
+    {
+      "condition": "trust_related_signal_count >= 3 && trust_related_signal_count <= 5",
+      "strength": "moderate",
+      "meaning": "Há sinais recorrentes de construção ou fragilidade de confiança."
+    },
+    {
+      "condition": "trust_related_signal_count >= 6",
+      "strength": "strong",
+      "meaning": "Há padrão forte relacionado à confiança entre os participantes."
+    },
+    {
+      "condition": "trust_building_signals_count >= 4 && skepticism_signals_count <= 1",
+      "strength": "strong",
+      "meaning": "Há padrão forte de construção de confiança."
+    },
+    {
+      "condition": "skepticism_signals_count >= 4",
+      "strength": "strong",
+      "meaning": "Há padrão forte de desconfiança, dúvida ou resistência."
+    }
+  ]
+},
+{
+  "area": "concession_frequency",
+  "pattern_strength_rules": [
+    {
+      "condition": "concessions_count == 1",
+      "strength": "weak",
+      "meaning": "A concessão aparece como evento pontual, sem formar padrão."
+    },
+    {
+      "condition": "concessions_count >= 2 && concessions_count <= 3",
+      "strength": "moderate",
+      "meaning": "Há recorrência moderada de concessões."
+    },
+    {
+      "condition": "concessions_count >= 4",
+      "strength": "strong",
+      "meaning": "Há alta recorrência de concessões na conversa."
+    },
+    {
+      "condition": "early_concessions_count >= 2",
+      "strength": "strong",
+      "meaning": "Há padrão forte de concessões precoces."
+    },
+    {
+      "condition": "unconditioned_concessions_count >= 3 && concessions_with_counterpart_count == 0",
+      "strength": "strong",
+      "meaning": "Há padrão forte de concessões sem contrapartida."
+    },
+    {
+      "condition": "concession_after_pressure_count >= 3",
+      "strength": "strong",
+      "meaning": "Há padrão forte de concessões reativas à pressão."
+    },
+    {
+      "condition": "concession_sequence_length >= 3",
+      "strength": "strong",
+      "meaning": "Há sequência concentrada de concessões, sugerindo possível perda de controle negocial."
+    }
+  ]
+},
+{
+  "area": "power_dynamics",
+  "pattern_strength_rules": [
+    {
+      "condition": "power_signal_count <= 2",
+      "strength": "weak",
+      "meaning": "Há sinais pontuais de assimetria de poder, mas sem padrão claro."
+    },
+    {
+      "condition": "power_signal_count >= 3 && power_signal_count <= 5",
+      "strength": "moderate",
+      "meaning": "Há sinais recorrentes de dinâmica de poder desigual ou influência dominante."
+    },
+    {
+      "condition": "power_signal_count >= 6",
+      "strength": "strong",
+      "meaning": "Há padrão forte de dinâmica de poder na conversa."
+    },
+    {
+      "condition": "topic_control_ratio >= 0.65 && talk_time_ratio >= 0.60",
+      "strength": "strong",
+      "meaning": "Há padrão forte de controle conversacional."
+    },
+    {
+      "condition": "pressure_signals_count >= 4",
+      "strength": "strong",
+      "meaning": "Há padrão forte de pressão exercida pelo falante."
+    },
+    {
+      "condition": "authority_claims_count >= 3",
+      "strength": "strong",
+      "meaning": "Há padrão forte de uso de autoridade."
+    },
+    {
+      "condition": "dependency_signals_count >= 3",
+      "strength": "strong",
+      "meaning": "Há padrão forte de dependência ou urgência, possivelmente reduzindo poder negocial."
+    },
+    {
+      "condition": "interrupted_by_others_count >= 4 && topic_control_ratio <= 0.35",
+      "strength": "strong",
+      "meaning": "Há padrão forte de posição conversacional enfraquecida."
+    }
+  ]
+},
+{
+  "area": "emotional_intelligence",
+  "pattern_strength_rules": [
+    {
+      "condition": "emotional_signal_count <= 2",
+      "strength": "weak",
+      "meaning": "Há poucos sinais emocionais para caracterizar um padrão consistente."
+    },
+    {
+      "condition": "emotional_signal_count >= 3 && emotional_signal_count <= 5",
+      "strength": "moderate",
+      "meaning": "Há sinais recorrentes de comportamento emocionalmente inteligente ou de tensão emocional."
+    },
+    {
+      "condition": "emotional_signal_count >= 6",
+      "strength": "strong",
+      "meaning": "Há padrão forte relacionado à inteligência emocional."
+    },
+    {
+      "condition": "empathy_signals_count >= 3 && active_listening_signals_count >= 3",
+      "strength": "strong",
+      "meaning": "Há padrão forte de empatia e escuta ativa."
+    },
+    {
+      "condition": "de_escalation_attempts_count >= 3",
+      "strength": "strong",
+      "meaning": "Há padrão forte de gestão de tensão."
+    },
+    {
+      "condition": "defensiveness_count >= 4",
+      "strength": "strong",
+      "meaning": "Há padrão forte de postura defensiva."
+    },
+    {
+      "condition": "escalation_signals_count >= 3",
+      "strength": "strong",
+      "meaning": "Há padrão forte de aumento de tensão."
+    },
+    {
+      "condition": "reframing_negative_to_neutral_count >= 3",
+      "strength": "strong",
+      "meaning": "Há padrão forte de reformulação construtiva."
+    }
+  ]
+},
+{
+  "area": "decision_patterns",
+  "pattern_strength_rules": [
+    {
+      "condition": "decision_signal_count <= 2",
+      "strength": "weak",
+      "meaning": "Há poucos sinais para caracterizar o padrão decisório."
+    },
+    {
+      "condition": "decision_signal_count >= 3 && decision_signal_count <= 5",
+      "strength": "moderate",
+      "meaning": "Há sinais recorrentes sobre como a decisão está sendo formada ou adiada."
+    },
+    {
+      "condition": "decision_signal_count >= 6",
+      "strength": "strong",
+      "meaning": "Há padrão forte relacionado ao processo decisório."
+    },
+    {
+      "condition": "deferred_decisions_count >= 3",
+      "strength": "strong",
+      "meaning": "Há padrão forte de adiamento de decisão."
+    },
+    {
+      "condition": "stakeholder_reference_count >= 3",
+      "strength": "strong",
+      "meaning": "Há padrão forte de dependência de terceiros para decisão."
+    },
+    {
+      "condition": "criteria_mentions_count >= 4",
+      "strength": "strong",
+      "meaning": "Há padrão forte de decisão orientada por critérios explícitos."
+    },
+    {
+      "condition": "decision_commitments_count >= 2 && next_steps_defined_count >= 2",
+      "strength": "strong",
+      "meaning": "Há padrão forte de decisão clara ou bem encaminhada."
+    },
+    {
+      "condition": "risk_mentions_count >= 3",
+      "strength": "strong",
+      "meaning": "Há padrão forte de decisão sensível a risco."
+    },
+    {
+      "condition": "conditional_acceptance_count >= 3",
+      "strength": "strong",
+      "meaning": "Há padrão forte de aceitação condicional."
+    }
+  ]
+},
+{
+  "area": "relationship_building",
+  "pattern_strength_rules": [
+    {
+      "condition": "relationship_signal_count <= 2",
+      "strength": "weak",
+      "meaning": "Há poucos sinais de construção de relacionamento."
+    },
+    {
+      "condition": "relationship_signal_count >= 3 && relationship_signal_count <= 5",
+      "strength": "moderate",
+      "meaning": "Há sinais recorrentes de construção de relacionamento."
+    },
+    {
+      "condition": "relationship_signal_count >= 6",
+      "strength": "strong",
+      "meaning": "Há padrão forte de construção de relacionamento."
+    },
+    {
+      "condition": "rapport_signals_count >= 4",
+      "strength": "strong",
+      "meaning": "Há padrão forte de criação de rapport."
+    },
+    {
+      "condition": "personalization_signals_count >= 3",
+      "strength": "strong",
+      "meaning": "Há padrão forte de personalização da conversa ao contexto do outro participante."
+    },
+    {
+      "condition": "shared_goal_statements_count >= 3",
+      "strength": "strong",
+      "meaning": "Há padrão forte de alinhamento em torno de objetivos comuns."
+    },
+    {
+      "condition": "trust_building_signals_count >= 4",
+      "strength": "strong",
+      "meaning": "Há padrão forte de fortalecimento de confiança."
+    },
+    {
+      "condition": "relationship_repair_attempts_count >= 2",
+      "strength": "strong",
+      "meaning": "Há padrão forte de tentativa de reparar tensão ou desconforto."
+    },
+    {
+      "condition": "rapport_signals_count <= 1 && empathy_signals_count == 0 && personalization_signals_count == 0",
+      "strength": "strong",
+      "meaning": "Há padrão forte de baixa construção de relacionamento."
+    }
+  ]
+}
+]}

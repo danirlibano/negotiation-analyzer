@@ -1,0 +1,67 @@
+{
+  "recommendation_generation_rules": [
+    {
+      "id": "generate_strong_recommendation",
+      "condition": "pattern_strength == 'strong'",
+      "action": "generate_recommendation",
+      "recommendation_tone": "direct",
+      "meaning": "A interpretação é bem sustentada e o padrão é forte. O sistema pode gerar uma recomendação clara e objetiva."
+    },
+    {
+      "id": "generate_moderate_recommendation",
+      "condition": "pattern_strength in ['moderate', 'strong']",
+      "action": "generate_recommendation",
+      "recommendation_tone": "cautious",
+      "meaning": "Há suporte razoável para recomendação, mas a linguagem deve ser mais cautelosa."
+    },
+    {
+      "id": "generate_light_recommendation",
+      "condition": "pattern_strength == 'moderate'",
+      "action": "generate_recommendation",
+      "recommendation_tone": "moderate",
+      "meaning": "O sistema está seguro da interpretação, mas o padrão não é forte o suficiente para uma recomendação muito intensa."
+    },
+    {
+      "id": "generate_observation_only",
+      "condition": "pattern_strength == 'weak'",
+      "action": "generate_observation",
+      "recommendation_tone": "light",
+      "meaning": "O sistema pode apontar o sinal como observação, mas não deve gerar recomendação forte."
+    },
+    {
+      "id": "do_not_generate_without_evidence",
+      "condition": "evidence_count == 0",
+      "action": "do_not_generate_recommendation",
+      "recommendation_tone": "none",
+      "meaning": "Não deve existir recomendação sem evidência textual associada."
+    },
+    {
+      "id": "generate_monitoring_recommendation",
+      "condition": "pattern_strength == 'weak' && evidence_count == 1",
+      "action": "generate_monitoring_note",
+      "recommendation_tone": "very_cautious",
+      "meaning": "O sistema pode sugerir apenas observar se o comportamento se repete em futuras conversas."
+    },
+    {
+      "id": "cap_recommendation_strength_when_transcript_low_quality",
+      "condition": "transcript_quality == 'low'",
+      "action": "downgrade_recommendation_strength",
+      "recommendation_tone": "cautious",
+      "meaning": "Mesmo que haja sinais, a baixa qualidade da transcrição reduz a força da recomendação."
+    },
+    {
+      "id": "avoid_duplicate_recommendations",
+      "condition": "similar_recommendation_already_generated == true",
+      "action": "merge_or_skip_recommendation",
+      "recommendation_tone": "same_as_existing",
+      "meaning": "O sistema deve evitar recomendações repetidas para áreas diferentes quando a ação prática é a mesma."
+    },
+    {
+      "id": "limit_recommendations_per_speaker",
+      "condition": "recommendations_count_for_speaker >= 5",
+      "action": "stop_generating_or_keep_only_top_priority",
+      "recommendation_tone": "none",
+      "meaning": "O sistema deve limitar o número de recomendações principais por falante."
+    }
+  ]
+}

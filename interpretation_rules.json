@@ -1,0 +1,327 @@
+{
+    "interpretation_rules": [
+    {
+    "area": "negotiation_tactics",
+    "rules": [
+        {
+        "condition": "anchoring_attempts_count >= 1",
+        "label": "uso de ancoragem",
+        "interpretation": "O falante tentou estabelecer uma referência inicial de valor, preço, prazo ou condição para orientar a negociação."
+        },
+        {
+        "condition": "value_reframing_count >= 2",
+        "label": "boa reformulação de valor",
+        "interpretation": "O falante procurou reposicionar a conversa em torno de valor, benefício ou resultado, em vez de discutir apenas preço ou custo."
+        },
+        {
+        "condition": "trade_offs_count >= 2",
+        "label": "uso estratégico de trocas",
+        "interpretation": "O falante utilizou trocas como estratégia de negociação, vinculando concessões ou condições a ganhos recíprocos."
+        },
+        {
+        "condition": "unconditioned_concessions_count >= 2 && concessions_with_counterpart_count == 0",
+        "label": "concessões pouco estratégicas",
+        "interpretation": "O falante fez concessões sem solicitar contrapartidas claras, o que pode indicar uma postura mais reativa do que estratégica."
+        },
+        {
+        "condition": "pressure_tactics_count >= 3",
+        "label": "uso elevado de pressão",
+        "interpretation": "O falante utilizou pressão de forma recorrente, como urgência, escassez, autoridade ou consequências negativas."
+        },
+        {
+        "condition": "objections_handled_count >= 2",
+        "label": "gestão ativa de objeções",
+        "interpretation": "O falante respondeu ou tentou contornar objeções de forma ativa durante a negociação."
+        }
+    ]
+    },
+    {
+    "area": "communication_style",
+    "rules": [
+        {
+        "condition": "open_questions_rate >= 0.40",
+        "label": "estilo exploratório",
+        "interpretation": "O falante demonstrou um estilo exploratório, usando perguntas abertas para entender necessidades, objeções ou contexto."
+        },
+        {
+        "condition": "open_questions_rate < 0.20 && closed_questions_count > open_questions_count",
+        "label": "estilo pouco exploratório",
+        "interpretation": "O falante fez poucas perguntas abertas, o que pode indicar baixa exploração das necessidades ou motivações do outro participante."
+        },
+        {
+        "condition": "talk_time_ratio >= 0.65",
+        "label": "estilo dominante",
+        "interpretation": "O falante concentrou grande parte do tempo de fala, indicando um estilo mais dominante ou expositivo."
+        },
+        {
+        "condition": "talk_time_ratio <= 0.35",
+        "label": "estilo mais passivo",
+        "interpretation": "O falante participou menos da conversa, o que pode indicar postura mais passiva, reservada ou reativa."
+        },
+        {
+        "condition": "interruptions_count >= 3",
+        "label": "comunicação interruptiva",
+        "interpretation": "O falante interrompeu o outro participante várias vezes, o que pode afetar a fluidez da conversa e a percepção de escuta."
+        },
+        {
+        "condition": "summarization_count >= 2",
+        "label": "boa confirmação de entendimento",
+        "interpretation": "O falante resumiu ou confirmou pontos importantes, indicando esforço para alinhar entendimento."
+        },
+        {
+        "condition": "hedging_count >= 4",
+        "label": "comunicação cautelosa ou incerta",
+        "interpretation": "O falante usou várias expressões de incerteza, sugerindo cautela, baixa convicção ou tentativa de evitar compromisso direto."
+        }
+    ]},
+{
+  "area": "speaker_confidence",
+  "rules": [
+    {
+      "condition": "assertive_statements_count >= 5 && hesitation_signals_count <= 1",
+      "label": "alta confiança demonstrada",
+      "interpretation": "O falante demonstrou confiança elevada, com afirmações claras e poucos sinais de hesitação."
+    },
+    {
+      "condition": "hedging_count >= 4 || hesitation_signals_count >= 3",
+      "label": "confiança demonstrada baixa ou cautelosa",
+      "interpretation": "O falante apresentou sinais de cautela ou incerteza, como hesitações, respostas condicionais ou expressões pouco assertivas."
+    },
+    {
+      "condition": "commitment_statements_count >= 2 && decision_certainty_signals_count >= 2",
+      "label": "clareza de compromisso",
+      "interpretation": "O falante assumiu compromissos de forma clara, indicando maior segurança em relação aos próximos passos ou decisões."
+    },
+    {
+      "condition": "self_corrections_count >= 3",
+      "label": "instabilidade na formulação",
+      "interpretation": "O falante corrigiu ou reformulou sua fala várias vezes, o que pode indicar cautela, incerteza ou tentativa de ajustar a mensagem."
+    }
+  ]
+},
+{
+  "area": "interpersonal_trust",
+  "rules": [
+    {
+      "condition": "trust_building_signals_count >= 3 && skepticism_signals_count <= 1",
+      "label": "boa construção de confiança",
+      "interpretation": "A conversa apresentou sinais consistentes de construção de confiança, com transparência, alinhamento e baixa resistência explícita."
+    },
+    {
+      "condition": "skepticism_signals_count >= 3",
+      "label": "confiança fragilizada",
+      "interpretation": "O outro participante demonstrou dúvidas ou resistência recorrente, indicando que a confiança ainda não estava plenamente estabelecida."
+    },
+    {
+      "condition": "transparency_signals_count >= 2",
+      "label": "uso de transparência",
+      "interpretation": "O falante explicou limites, condições ou riscos de forma aberta, o que pode contribuir para a construção de confiança."
+    },
+    {
+      "condition": "reassurance_attempts_count >= 2 && skepticism_signals_count >= 2",
+      "label": "tentativa de reparar confiança",
+      "interpretation": "O falante tentou reduzir dúvidas ou insegurança do outro participante, sugerindo uma tentativa ativa de reconstruir confiança."
+    }
+  ]
+},
+{
+  "area": "concession_frequency",
+  "rules": [
+    {
+      "condition": "concessions_count == 0",
+      "label": "ausência de concessões",
+      "interpretation": "O falante não realizou concessões explícitas durante a conversa."
+    },
+    {
+      "condition": "concessions_count >= 1 && concessions_count <= 2",
+      "label": "baixa frequência de concessões",
+      "interpretation": "O falante fez poucas concessões, indicando maior preservação de posição ou menor flexibilidade aparente."
+    },
+    {
+      "condition": "concessions_count >= 3 || concession_rate_per_10_minutes >= 2",
+      "label": "alta frequência de concessões",
+      "interpretation": "O falante realizou concessões com frequência elevada, o que pode indicar flexibilidade, pressão competitiva ou perda de controle dependendo do contexto."
+    },
+    {
+      "condition": "early_concessions_count >= 2",
+      "label": "concessões precoces",
+      "interpretation": "O falante fez concessões cedo na conversa, antes de haver evidência clara de exploração completa das necessidades ou contrapartidas."
+    },
+    {
+      "condition": "unconditioned_concessions_count >= 2 && concessions_with_counterpart_count == 0",
+      "label": "concessões sem contrapartida",
+      "interpretation": "O falante concedeu valor sem pedir algo em troca, o que pode enfraquecer sua posição negocial."
+    },
+    {
+      "condition": "concessions_with_counterpart_count >= 2",
+      "label": "concessões condicionadas",
+      "interpretation": "O falante vinculou concessões a contrapartidas, indicando uso mais estratégico das concessões."
+    },
+    {
+      "condition": "concession_after_pressure_count >= 2",
+      "label": "concessões reativas à pressão",
+      "interpretation": "O falante concedeu logo após sinais de pressão do outro participante, sugerindo uma postura reativa."
+    }
+  ]
+},
+{
+  "area": "power_dynamics",
+  "rules": [
+    {
+      "condition": "topic_control_ratio >= 0.60 && talk_time_ratio >= 0.60",
+      "label": "alto controle da conversa",
+      "interpretation": "O falante teve forte controle da conversa, conduzindo a maioria dos tópicos e concentrando grande parte do tempo de fala."
+    },
+    {
+      "condition": "topic_control_ratio <= 0.35 && talk_time_ratio <= 0.40",
+      "label": "baixo controle da conversa",
+      "interpretation": "O falante teve menor controle da conversa, participando menos e conduzindo poucos tópicos."
+    },
+    {
+      "condition": "pressure_signals_count >= 3",
+      "label": "uso recorrente de pressão",
+      "interpretation": "O falante usou pressão de forma recorrente para influenciar a posição ou decisão do outro participante."
+    },
+    {
+      "condition": "authority_claims_count >= 2",
+      "label": "uso de autoridade",
+      "interpretation": "O falante recorreu a autoridade, cargo, regras ou poder decisório para sustentar sua posição."
+    },
+    {
+      "condition": "dependency_signals_count >= 2",
+      "label": "sinais de dependência",
+      "interpretation": "O falante demonstrou necessidade, urgência ou dependência da decisão do outro participante, o que pode reduzir seu poder negocial."
+    },
+    {
+      "condition": "resistance_to_pressure_count >= 2",
+      "label": "boa resistência à pressão",
+      "interpretation": "O falante resistiu à pressão sem conceder imediatamente, preservando sua posição na negociação."
+    },
+    {
+      "condition": "interrupted_by_others_count >= 3",
+      "label": "posição conversacional enfraquecida",
+      "interpretation": "O falante foi interrompido várias vezes, o que pode indicar menor controle da interação."
+    }
+  ]
+},
+{
+  "area": "emotional_intelligence",
+  "rules": [
+    {
+      "condition": "empathy_signals_count >= 3",
+      "label": "boa demonstração de empatia",
+      "interpretation": "O falante demonstrou empatia de forma recorrente, reconhecendo perspectivas, preocupações ou necessidades do outro participante."
+    },
+    {
+      "condition": "emotion_acknowledgement_count >= 2",
+      "label": "reconhecimento emocional",
+      "interpretation": "O falante reconheceu emoções ou preocupações do outro, o que pode ajudar a reduzir tensão e melhorar colaboração."
+    },
+    {
+      "condition": "de_escalation_attempts_count >= 2",
+      "label": "boa gestão de tensão",
+      "interpretation": "O falante tentou reduzir tensão ou conflito em momentos críticos da conversa."
+    },
+    {
+      "condition": "defensiveness_count >= 3",
+      "label": "postura defensiva",
+      "interpretation": "O falante respondeu de forma defensiva em vários momentos, o que pode dificultar colaboração ou abertura."
+    },
+    {
+      "condition": "escalation_signals_count >= 2",
+      "label": "aumento de tensão",
+      "interpretation": "O falante contribuiu para aumentar a tensão da conversa, por meio de respostas mais duras, confrontativas ou pouco conciliadoras."
+    },
+    {
+      "condition": "active_listening_signals_count >= 3",
+      "label": "boa escuta ativa",
+      "interpretation": "O falante demonstrou escuta ativa, usando confirmações, reformulações ou validações do que foi dito pelo outro participante."
+    },
+    {
+      "condition": "reframing_negative_to_neutral_count >= 2",
+      "label": "boa reformulação emocional",
+      "interpretation": "O falante reformulou pontos negativos de forma mais neutra ou construtiva, ajudando a manter a conversa produtiva."
+    }
+  ]
+},
+{
+  "area": "decision_patterns",
+  "rules": [
+    {
+      "condition": "decision_commitments_count >= 2 && next_steps_defined_count >= 1",
+      "label": "decisão clara ou encaminhada",
+      "interpretation": "A conversa apresentou sinais de decisão clara ou bem encaminhada, com compromissos assumidos e próximos passos definidos."
+    },
+    {
+      "condition": "deferred_decisions_count >= 2",
+      "label": "decisão adiada",
+      "interpretation": "As decisões foram adiadas em vários momentos, indicando indefinição, necessidade de validação externa ou falta de critérios suficientes."
+    },
+    {
+      "condition": "conditional_acceptance_count >= 2",
+      "label": "aceitação condicional",
+      "interpretation": "O participante demonstrou abertura para avançar, mas condicionou a decisão a preço, prazo, aprovação ou outra condição."
+    },
+    {
+      "condition": "stakeholder_reference_count >= 2",
+      "label": "dependência de terceiros",
+      "interpretation": "A decisão parece depender de outras pessoas ou instâncias, como gestor, equipa, parceiro ou direção."
+    },
+    {
+      "condition": "criteria_mentions_count >= 3",
+      "label": "decisão orientada por critérios",
+      "interpretation": "O participante usou critérios explícitos para avaliar a decisão, como preço, prazo, risco, valor ou aprovação interna."
+    },
+    {
+      "condition": "risk_mentions_count >= 2",
+      "label": "decisão sensível a risco",
+      "interpretation": "A decisão foi influenciada por preocupações com risco, incerteza ou consequências negativas."
+    },
+    {
+      "condition": "decision_clarity_score < 50",
+      "label": "baixa clareza decisória",
+      "interpretation": "A conversa terminou com baixa clareza decisória, poucos compromissos explícitos ou próximos passos pouco definidos."
+    }
+  ]
+},
+{
+  "area": "relationship_building",
+  "rules": [
+    {
+      "condition": "rapport_signals_count >= 3",
+      "label": "boa criação de rapport",
+      "interpretation": "O falante demonstrou esforço recorrente para criar conexão, cordialidade ou proximidade com o outro participante."
+    },
+    {
+      "condition": "personalization_signals_count >= 2",
+      "label": "boa personalização",
+      "interpretation": "O falante adaptou a conversa ao contexto específico do outro participante, o que favorece relacionamento e relevância."
+    },
+    {
+      "condition": "shared_goal_statements_count >= 2",
+      "label": "construção de objetivo comum",
+      "interpretation": "O falante buscou alinhar a conversa em torno de objetivos comuns, reduzindo a percepção de confronto."
+    },
+    {
+      "condition": "positive_acknowledgements_count >= 3",
+      "label": "validação positiva recorrente",
+      "interpretation": "O falante validou positivamente pontos do outro participante, contribuindo para um clima mais colaborativo."
+    },
+    {
+      "condition": "trust_building_signals_count >= 3",
+      "label": "fortalecimento de confiança",
+      "interpretation": "O falante apresentou sinais de transparência, credibilidade ou compromisso, fortalecendo a relação."
+    },
+    {
+      "condition": "relationship_repair_attempts_count >= 1",
+      "label": "reparo de relacionamento",
+      "interpretation": "O falante tentou reparar tensão, mal-entendido ou desconforto durante a conversa."
+    },
+    {
+      "condition": "rapport_signals_count <= 1 && empathy_signals_count == 0 && personalization_signals_count == 0",
+      "label": "baixa construção de relacionamento",
+      "interpretation": "A conversa apresentou poucos sinais de construção de relacionamento, empatia ou personalização."
+    }
+  ]
+}
+]}

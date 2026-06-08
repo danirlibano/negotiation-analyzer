@@ -1,0 +1,24 @@
+{
+  "privacy_and_safety_rules": [
+    {
+      "condition": "artifact.contains_client_name == true && privacy_mode == 'anonymized'",
+      "action": "replace_client_name_with_alias"
+    },
+    {
+      "condition": "artifact.contains_personal_data == true",
+      "action": "redact_personal_data"
+    },
+    {
+      "condition": "artifact.contains_sensitive_commercial_terms == true",
+      "action": "mask_sensitive_values"
+    },
+    {
+      "condition": "repository_visibility == 'public'",
+      "action": "block_artifact_publication_until_review"
+    },
+    {
+      "condition": "artifact.contains_raw_transcript == true && allow_raw_transcript_publication == false",
+      "action": "include_evidence_refs_only"
+    }
+  ]
+}

@@ -1,0 +1,74 @@
+{"area_collection":[
+{
+  
+  "negotiation_tactics_metrics": {
+    "total_tactics_detected": 0,
+    "tactics_by_speaker": {},
+    "tactics_by_type": {},
+    "most_common_tactic": "string",
+    "tactics_per_minute": 0.0
+  },
+  "communication_styles_metrics": {
+  "talk_turns_by_speaker": {},
+  "average_utterance_length_by_speaker": {},
+  "question_count_by_speaker": {},
+  "statement_count_by_speaker": {},
+  "interruption_count_by_speaker": {},
+  "collaborative_terms_count": {},
+  "defensive_terms_count": {}
+},
+  "confidence_levels_metrics": {
+  "hesitation_terms_count_by_speaker": {},
+  "firm_terms_count_by_speaker": {},
+  "backtracking_count_by_speaker": {},
+  "authority_reference_count_by_speaker": {},
+  "data_reference_count_by_speaker": {}
+}, 
+"concession_types_metrics": {
+  "total_concessions": 0,
+  "concessions_by_speaker": {},
+  "concessions_by_type": {},
+  "conditional_concessions_count": 0,
+  "unconditional_concessions_count": 0,
+  "concessions_per_minute": 0.0,
+  "first_concession_speaker": "string",
+  "largest_concession": "string"
+}, 
+"power_dynamics_metrics": {
+  "talk_time_ratio_by_speaker": {},
+  "turn_count_by_speaker": {},
+  "rejection_count_by_speaker": {},
+  "concession_count_by_speaker": {},
+  "question_count_by_speaker": {},
+  "proposal_count_by_speaker": {},
+  "counterproposal_count_by_speaker": {},
+  "topic_initiation_count_by_speaker": {},
+  "deadline_pressure_count_by_speaker": {}
+},
+ "emotional_intelligence_metrics": {
+  "empathy_statements_count_by_speaker": {},
+  "acknowledgement_count_by_speaker": {},
+  "defensive_responses_count_by_speaker": {},
+  "conflict_escalation_count_by_speaker": {},
+  "repair_attempt_count_by_speaker": {},
+  "objection_response_quality_score_by_speaker": {}
+},
+ "decision_making_metrics": {
+  "acceptance_count_by_speaker": {},
+  "rejection_count_by_speaker": {},
+  "postponement_count_by_speaker": {},
+  "information_request_count_by_speaker": {},
+  "approval_request_count_by_speaker": {},
+  "conditional_acceptance_count_by_speaker": {},
+  "decision_criteria_frequency": {}
+},
+ "relationship_building_metrcis": {
+  "positive_acknowledgement_count_by_speaker": {},
+  "gratitude_count_by_speaker": {},
+  "open_question_count_by_speaker": {},
+  "collaborative_language_count_by_speaker": {},
+  "validation_count_by_speaker": {},
+  "relationship_damage_count_by_speaker": {},
+  "rapport_score_by_speaker": {}
+}
+}]}

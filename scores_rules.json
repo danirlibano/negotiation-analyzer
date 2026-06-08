@@ -1,0 +1,113 @@
+{
+  "scores_rules": {
+    "negotiation_tactics_score": {
+      "range": "0-100",
+      "owner": "system",
+      "depends_on": [
+        "value_defense_count",
+        "strategic_questions_count",
+        "objection_handling_count",
+        "concessions_with_counterpart_count",
+        "concessions_without_counterpart_count",
+        "early_concessions_count"
+      ]
+    },
+    "communication_style_score": {
+      "range": "0-100",
+      "owner": "system",
+      "depends_on": [
+        "open_questions_count",
+        "clarifying_questions_count",
+        "active_listening_count",
+        "clear_explanations_count",
+        "interruptions_count",
+        "long_monologues_count"
+      ]
+    },
+    "confidence_score": {
+      "range": "0-100",
+      "owner": "system",
+      "depends_on": [
+        "assertive_statements_count",
+        "clear_recommendations_count",
+        "hesitation_count",
+        "uncertainty_markers_count",
+        "defensive_language_count"
+      ]
+    },
+    "concession_quality_score": {
+      "range": "0-100",
+      "owner": "system",
+      "depends_on": [
+        "total_concessions_count",
+        "concessions_with_counterpart_count",
+        "concessions_without_counterpart_count",
+        "early_concessions_count",
+        "value_defense_before_concession_count"
+      ]
+    },
+    "power_position_score": {
+      "range": "0-100",
+      "owner": "system",
+      "depends_on": [
+        "agenda_setting_count",
+        "topic_control_count",
+        "questions_asked_count",
+        "successful_redirects_count",
+        "concessions_forced_count",
+        "interruptions_received_count"
+      ]
+    },
+    "emotional_intelligence_score": {
+      "range": "0-100",
+      "owner": "system",
+      "depends_on": [
+        "empathy_signals_count",
+        "validation_count",
+        "active_listening_count",
+        "calm_response_to_pressure_count",
+        "defensive_response_count",
+        "negative_emotional_escalation_count"
+      ]
+    },
+    "decision_clarity_score": {
+      "range": "0-100",
+      "owner": "system",
+      "applies_to": "Cliente",
+      "depends_on": [
+        "decision_criteria_count",
+        "budget_mentions_count",
+        "timeline_mentions_count",
+        "stakeholder_mentions_count",
+        "approval_process_mentions_count",
+        "unclear_decision_signals_count"
+      ]
+    },
+    "decision_guidance_score": {
+      "range": "0-100",
+      "owner": "system",
+      "applies_to": "Vendedor",
+      "depends_on": [
+        "decision_questions_count",
+        "next_step_proposals_count",
+        "stakeholder_discovery_count",
+        "timeline_discovery_count",
+        "budget_discovery_count",
+        "missed_decision_opportunity_count"
+      ]
+    },
+    "relationship_building_score": {
+      "range": "0-100",
+      "owner": "system",
+      "depends_on": [
+        "rapport_signals_count",
+        "personalization_count",
+        "empathy_signals_count",
+        "open_questions_count",
+        "active_listening_count",
+        "collaborative_language_count",
+        "transactional_language_count"
+      ]
+    }
+  }
+}
